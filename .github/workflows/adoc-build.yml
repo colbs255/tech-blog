@@ -29,6 +29,8 @@ jobs:
       uses: tonynv/asciidoctor-action@master
       with:
           program: "asciidoctor -D docs --backend=html5 -o site/index.html content/index.adoc"
+    - name: Debug
+      run: tree
     - name: Setup Pages
       uses: actions/configure-pages@v3
     - name: Upload artifact
