@@ -28,7 +28,7 @@ jobs:
       id: adocbuild
       uses: tonynv/asciidoctor-action@master
       with:
-          program: "asciidoctor -D docs --backend=html5 -o site/index.html content/index.adoc"
+          program: "asciidoctor -D site --backend=html5 -o index.html content/index.adoc"
     - name: Debug
       run: tree
     - name: Setup Pages
