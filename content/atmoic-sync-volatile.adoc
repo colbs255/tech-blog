@@ -1,4 +1,4 @@
-= Volatile and Synchronized and Atomic, oh my!
+= Volatile and Synchronized and Atomic, Oh My!
 :keywords: java, atomic, cas, volatile, memory-visibility, synchronized
 
 Java provides several constructs for navigating the complexities of concurrency.
@@ -12,13 +12,14 @@ Concurrent programming is difficult because of 2 problems: memory visibility and
 === Memory Visibility
 
 Consider this program:
+
 [source,java]
----
+----
 import java.util.concurrent.TimeUnit;
 
 public class Example {
 
-    private static boolean stopRequested;
+    private static boolean stopRequested = false;
 
     public static void main(String[] args) throws InterruptedException {
         Thread backgroundThread = new Thread(() -> {
@@ -26,13 +27,13 @@ public class Example {
             while (!stopRequested)
                 i++;
         });
-        
+
         backgroundThread.start();
         TimeUnit.SECONDS.sleep(1);
         stopRequested = true;
     }
 }
----
+----
 
 If you try running it, it won't terminate.
 Why? This is how the memory model of java works, threads have copies of variables and changing the variable in one thread is not guaranteed to appear in another thread.
