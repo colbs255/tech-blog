@@ -1,4 +1,4 @@
 = Tech Notes
 
 == Pages
-* atomic-sync-volatile.adoc[Volatile, Sync, Atomic]
+* xref:atmoic-sync-volatile.adoc[Volatile, Sync, Atomic]
