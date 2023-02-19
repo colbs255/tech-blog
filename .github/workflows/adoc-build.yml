@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Build and publish adoc:
+  adoc:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
