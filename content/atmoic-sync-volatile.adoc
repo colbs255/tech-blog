@@ -1,0 +1,38 @@
+= Volatile vs Atomic vs Synchronized block
+:keywords: java, atomic, cas, volatile, memory-visibility, synchronized
+
+Java has several constructs for navigating the complexities of concurrency
+Their differences seem subtle but can have drastic effects on applications.
+
+== What is the difference?
+There are 2 main problems with concurrency:
+* Memory Visibility: a change to a variable may not appear in another thread (and most likely won't)
+* Atomicity: if operations are interleaved, programs can do strange things
+
+Volatile tells java to not place the variable in a register and to instead grab the value from the main cache. This solves the memory visibility problem.
+Synchronized blocks have stronger semantics: they solve the memory consistency problem but ensure only 1 thread is running the sync block at a time.
+Atomic variables have volatile semantics with `get` and `set` but also support synchronization via compare and set (CAS) operations `compareAndSet`.
+
+== What is CAS?
+CAS is considered non-locking synchronization.
+They check the current value and only apply the change if the current value equals the expected value
+CAS operations can be much more performant than traditional locks because they don't actually lock or have to reschedule threads.
+The main disadvantage of CAS is it's harder to design algorithms around.
+They are actually less performant when contention is very high (but still generally faster in most real world cases)
+
+== Analogy
+Sync blocks are like a line. CAS is like a free for all?
+
+|===
+| Feature | Volatile | Sync | Atomic
+
+| Memory Visibility
+| Y
+| Y
+| Y
+
+| Synchronized
+| N
+| Y
+| Y
+|===
