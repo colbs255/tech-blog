@@ -1,3 +1,4 @@
-= Homepage
+= Tech Notes
 
-== Stuff
+== Pages
+* atomic-sync-volatile.adoc[Volatile, Sync, Atomic]
