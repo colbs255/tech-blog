@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  adoc:
+  adocbuild:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -28,7 +28,7 @@ jobs:
       id: adocbuild
       uses: tonynv/asciidoctor-action@master
       with:
-          program: "asciidoctor -D site --backend=html5 -o index.html content/index.adoc"
+          program: "asciidoctor -D site --backend=html5 content/*.adoc"
     - name: Debug
       run: tree
     - name: Setup Pages
