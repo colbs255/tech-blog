@@ -1,9 +1,9 @@
 = Volatile and Synchronized and Atomic, Oh My!
 :keywords: java, atomic, cas, volatile, memory-visibility, synchronized
 
-Java provides several constructs for navigating the complexities of concurrency.
+Java provides several constructs for mitigating the complexities of concurrency.
 Their differences seem subtle but can have drastic effects on applications.
-This article explains what these constructs are and when they should be used.
+This article explains what these constructs are and when to use them.
 
 == The Difficulties of Concurrency
 
@@ -36,9 +36,16 @@ public class Example {
 ----
 
 If you try running it, it won't terminate.
-Why? This is how the memory model of java works, threads have copies of variables and changing the variable in one thread is not guaranteed to appear in another thread.
+Why? Threads have copies of variables the java memory model does not guarantee that writes on a variable in one thread will appear in another thread.
 
 === Atomicity
+
+Consider this program:
+
+[source,java]
+----
+----
+
 * Atomicity: if operations are interleaved, programs can behave in strange, unpredictable ways
 
 
