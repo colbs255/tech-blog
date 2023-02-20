@@ -36,7 +36,7 @@ public class Example {
 ----
 
 If you try running it, it won't terminate.
-Why? Threads have copies of variables the java memory model does not guarantee that writes on a variable in one thread will appear in another thread.
+Why? The java memory model does not guarantee that writes on a variable in one thread will appear in another thread.
 
 === Atomicity
 
