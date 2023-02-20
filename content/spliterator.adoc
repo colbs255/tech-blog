@@ -1,0 +1,9 @@
+= Spliterator
+:keywords: java, spliterator, iterator
+
+Like an iterator, spliterators allow you to traverse through elements of a source, but can also be split for potentially parallel algorithms.
+They can easily be converted to streams via `StreamSupport#stream`, and their single iteration method: `tryAdvance` is easier to reason about than the 2 iteration methods: `next` and `hasNext` on the iterator interface.
+
+== How do I make a spliterator?
+
+== How do I create a stream out of a spliterator?
