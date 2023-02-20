@@ -1,9 +1,9 @@
 = Volatile and Synchronized and Atomic, Oh My!
 :keywords: java, atomic, cas, volatile, memory-visibility, synchronized
 
-Java provides several variable types for mitigating the complexities of concurrency.
+Java provides several constructs for mitigating the complexities of concurrency.
 Their differences seem subtle but can have drastic effects on applications.
-This article explains what these constructs are and when to use them.
+This article explains why these exist and when to use each one.
 
 == The Difficulties of Concurrency
 
@@ -64,8 +64,8 @@ Consider 2 threads `a` and `b` running this line simultaneously:
 . a stores 2 into x
 . b stores 2 into x
 
-So we have 2 add operations but the final value is only incremented by 1, clearly that is wrong.
-The key lesson is that operations can be interleaved in strange ways that result in bugs - they are not *atomic*.
+So we have 2 increment operations but the final value is only incremented by 1, clearly that is wrong.
+Meaning operations (even 1 liners) can be interleaved in strange ways that result in bugs - they are not *atomic*.
 
 
 == Solutions for Concurrency
@@ -81,11 +81,11 @@ Synchronized blocks have stronger semantics; they address the memory visibility 
 
 === Atomic Variables
 Atomic variables have volatile semantics with `get` and `set` but also solve the atomicity problem via compare and set (CAS) operations (`compareAndSet` method).
-Unlike synchronized blocks, they are nonblocking resulting in better performance than synchronized blocks in _most_ cases.
+Unlike synchronized blocks, they are nonblocking, resulting in better performance than synchronized blocks in _most_ cases.
 
 === What is CAS?
 CAS is a form of non-locking synchronization.
-It is an instruction that checks the current value and only applies the change if the current value equals the expected value.
+It is an atomic instruction that checks the current value and only applies the new value if the current value equals the expected value.
 They can be more performant than traditional locks because they don't actually lock or have to reschedule threads.
 The main disadvantage of CAS is it's harder to design algorithms around.
 They are actually less performant when contention is very high (but still generally faster in most real world cases)
@@ -93,14 +93,14 @@ They are actually less performant when contention is very high (but still genera
 == Summary
 
 |===
-| Feature | Volatile | Sync | Atomic
+| | Volatile | Synchronized | Atomic
 
-| Memory Visibility
+| Are changes visible to other threads?
 | Y
 | Y
 | Y
 
-| Synchronized
+| Does it enable atomicity?
 | N
 | Y
 | Y
