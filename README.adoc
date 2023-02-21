@@ -1,3 +1,3 @@
 = README
 
-Asciidoc files in `content` folder are converted into html files in `site` and rendered via github pages
+Asciidoc files in `content` folder are converted into html files in `site` and rendered via github pages.
