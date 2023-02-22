@@ -22,8 +22,8 @@ This works, but what if we want to do the same for a `Set`? It doesn't have a ge
 Spliterators...
 
 . have a few extra methods to be implemented that allows it to split and converted to a stream:
-    . `int characteristics()`
-    . `long estimateSize()`
+.. `int characteristics()`
+.. `long estimateSize()`
 . merge `T next()` and `boolean hasNext()` into `boolean tryAdvance(Consumer<? super T> action)`
 
 == How do I make a Spliterator?
