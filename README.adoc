@@ -1,3 +1,6 @@
 = README
 
+Repo for my technical "blog" posts.
+Blog is here: https://colbs255.github.io/tech-notes/[Tech Notes blog].
 Asciidoc files in `content` folder are converted into html files in `site` and rendered via github pages.
+Want to request a topic or suggest an edit? File an issue and I'll address it ASAP!
