@@ -1,11 +1,12 @@
 = Spliterator
 :keywords: java, spliterator, iterator
 
-Like an iterator, spliterators allow you to traverse through elements of a source, but can also be split for potentially parallel algorithms.
-They are arguably easier to reason about than Iterators and can be easily converted to a stream.
+Like an iterator, spliterators allow you to traverse through elements of a source, but can also be used in parallel algorithms.
+They are arguably easier to reason about than Iterators and can be easily converted to a streams.
 
 == What is an Iterator?
-Let's walk through iterators first. An iterator is a built in java interface with methods for traversing through a collection.
+Let's walk through iterators first since it will help with understanding Spliterators.
+An iterator is a built in java interface with methods for traversing through a collection.
 Consider this example where we print the elements of a list:
 
 [source,java]
@@ -16,17 +17,52 @@ for (int i = 0; i < numbers.size(); i++) {
 }
 ----
 
-This works, but what if we want to do the same for a `Set`? It doesn't have a get by index method like a list, so how do we
+This works, but what if we want to do the same for a `Set`? Sets do not have a get by index method like a list, so how do we iterate through its elements? Yes, an iterator!
+
+[source,java]
+----
+var numbers = Set.of(1, 2, 3);
+for (Iterator<Integer> iterator = numbers.iterator(); iterator.hasNext();) {
+    int number = iterator.next();
+    System.out.println(number);
+}
+----
+
+Hooray! We can now traverse through arbitary collections with the same lines of code!
+But... this comes at a cost - the approach is ugly and has a lot of boilerplate for simply traversing a collection.
+And the java language designers must have agreed because they created an easier method the for-each loop:
+
+[source,java]
+----
+var numbers = Set.of(1, 2, 3);
+for (int number: numbers) {
+    System.out.println(number);
+}
+----
+
+Yes, the beloved for-each loop is just a clean way of using an iterator, and it's the most common way of using iterators.
 
 == How do Spliterators differ from Iterators?
-Spliterators...
+Spliterators are similar to iterators but they...
 
-. have a few extra methods to be implemented that allows it to split and converted to a stream:
+. include a few extra methods that allows it the Spliterator to be split and also converted to a stream:
 .. `int characteristics()`
 .. `long estimateSize()`
 . merge `T next()` and `boolean hasNext()` into `boolean tryAdvance(Consumer<? super T> action)`
+. do not have a `E remove()` method
 
 == How do I make a Spliterator?
 Let's make a spliterator for an array list
 
 == How do I create a stream from a Spliterator?
+This is the easiest part of the article, let's say you have a Spliterator for integers, you can convert it a streeam like this:
+
+[source,java]
+----
+Spliterator<Integer> yourSpliterator = List.of(1, 2, 3).spliterator();
+Stream<Integer> yourStream = StreamSupport.stream(yourSpliterator, true);
+yourStream
+        .filter(v -> v % 2 == 1)
+        .count();
+
+----
