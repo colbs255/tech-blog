@@ -74,10 +74,10 @@ These constructs are different approaches to mitigating these difficulties:
 
 === Volatile
 
-Volatile addresses the memory visibility problem: it tells java to not place the variable in a register and to instead grab the value from the main cache. This means volatile would work for our loop example but not for our `x++` example.
+Volatile addresses the memory visibility problem: it ensures that writes to a variable will be visible on all threads. This means volatile would work for our loop example but not for our `x++` example.
 
 === Synchronized
-Synchronized blocks have stronger semantics; they address the memory visibility problem but *also address the atomicity problem* by ensuring only 1 thread is running the sync block at a time.
+Synchronized blocks have stronger semantics than volatile; they address the memory visibility problem but *also address the atomicity problem* by ensuring only 1 thread is running the sync block at a time. This means synchronized blocks would work for both examples.
 
 === Atomic Variables
 Atomic variables have volatile semantics with `get` and `set` but also solve the atomicity problem via compare and set (CAS) operations (`compareAndSet` method).
