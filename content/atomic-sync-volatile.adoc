@@ -34,7 +34,7 @@ class Example {
 }
 ----
 
-If you try running it, it will not terminate; the background thread will always think `stopRequested` is still false and continue to loop.
+Try running it, and it probably will not terminate; the background thread will always think `stopRequested` is still false and continue to loop.
 Why? The java memory model does not guarantee that writes on a variable in one thread will appear in another thread.
 In other words, memory modifications are not always *visible* to other threads.
 
@@ -73,11 +73,12 @@ Concurrent programming is **hard** and that's why these constructs exist; they p
 
 === Volatile
 
-Volatile addresses the memory visibility problem: it tells to always grab the value from the cache that is shared between threads.
+Volatile addresses the memory visibility problem: it tells Java to always grab the value from the cache that is shared between threads.
 This means volatile would work for our loop example but not for our `x++` example.
 
 === Synchronized
-Synchronized blocks have stronger semantics; they address the memory visibility problem but *also address the atomicity problem* by ensuring only 1 thread is running the sync block at a time.
+Synchronized blocks have stronger semantics than volatile; they address the memory visibility problem but *also address the atomicity problem* by ensuring only 1 thread is running the sync block at a time.
+This means synchronized blocks would work for both examples, but they are less performant than volatile variables due to locking.
 
 === Atomic Variables
 Atomic variables have volatile semantics with `get` and `set` but also solve the atomicity problem via compare and set (CAS) operations (`compareAndSet` method).
