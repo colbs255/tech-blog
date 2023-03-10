@@ -2,16 +2,15 @@
 :keywords: java, atomic, cas, volatile, memory-visibility, synchronized
 
 Java provides several constructs for mitigating the complexities of concurrency.
-Their differences seem subtle but can have drastic effects on applications.
-This article explains why these exist and when to use each one.
+This article explains why each of these constructs exist and when to use each one.
 
 == The Difficulties of Concurrency
 
-To understand the differences, we first need to understand the 2 main difficulties with concurrent programming: memory visibility and atomicity.
+To understand these constructs, we need to understand the 2 main difficulties with concurrent programming: memory visibility and atomicity.
 
 === Memory Visibility
 
-Consider this program:
+Consider the program below. It starts a thread that waits for the main thread to set `stopRequested` to true.
 
 [source,java]
 ----
@@ -37,11 +36,11 @@ class Example {
 
 If you try running it, it will not terminate; the background thread will always think `stopRequested` is still false and continue to loop.
 Why? The java memory model does not guarantee that writes on a variable in one thread will appear in another thread.
-In other words, memory modifications are not always visible to other threads.
+In other words, memory modifications are not always *visible* to other threads.
 
 === Atomicity
 
-Consider this program:
+Consider the program below.
 
 [source,java]
 ----
@@ -64,17 +63,18 @@ Consider 2 threads `a` and `b` running this line simultaneously:
 . a stores 2 into x
 . b stores 2 into x
 
-So we have 2 increment operations but the final value is only incremented by 1, clearly that is wrong.
-Meaning operations (even 1 liners) can be interleaved in strange ways that result in bugs - they are not *atomic*.
+2 increment operations are performed but the final value is only incremented by 1, clearly that is wrong.
+This shows how operations (even 1 liners) can be interleaved in strange ways that result in bugs - they are not *atomic*.
 
 
 == Solutions for Concurrency
 
-These constructs are different approaches to mitigating these difficulties:
+Concurrent programming is **hard** and that's why these constructs exist; they provide guarantees that allow us to better reason about our concurrent programs.
 
 === Volatile
 
-Volatile addresses the memory visibility problem: it tells java to not place the variable in a register and to instead grab the value from the main cache. This means volatile would work for our loop example but not for our `x++` example.
+Volatile addresses the memory visibility problem: it tells to always grab the value from the cache that is shared between threads.
+This means volatile would work for our loop example but not for our `x++` example.
 
 === Synchronized
 Synchronized blocks have stronger semantics; they address the memory visibility problem but *also address the atomicity problem* by ensuring only 1 thread is running the sync block at a time.
@@ -83,12 +83,15 @@ Synchronized blocks have stronger semantics; they address the memory visibility 
 Atomic variables have volatile semantics with `get` and `set` but also solve the atomicity problem via compare and set (CAS) operations (`compareAndSet` method).
 Unlike synchronized blocks, they are nonblocking, resulting in better performance than synchronized blocks in _most_ cases.
 
-=== What is CAS?
+[NOTE]
+.What is CAS?
+====
 CAS is a form of non-locking synchronization.
 It is an atomic instruction that checks the current value and only applies the new value if the current value equals the expected value.
-They can be more performant than traditional locks because they don't actually lock or have to reschedule threads.
-The main disadvantage of CAS is it's harder to design algorithms around.
-They are actually less performant when contention is very high (but still generally faster in most real world cases)
+They are generally more performant than traditional locks because they don't actually lock or have to reschedule threads on the CPU.
+Like everything else, CAS comes with trade-offs. Designing algorithms with CAS is more difficult than using a standard lock.
+They are actually less performant when contention is **very** high, but still faster in most real world cases.
+====
 
 == Summary
 
