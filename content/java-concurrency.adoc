@@ -1,39 +1,87 @@
 = Java Concurrency
+:keywords: java, atomic, cas, volatile, memory-visibility, synchronized, blocking, transfer, concurrent, lock, executor
+
+== Terms
+- Concurrency
+- Parallelism
+- Thread
+- Thread safe
+- Concurrent
+- Synchronized
 
 == Thread
 
 == Synchronized
 
-== General
+== Data Structures designed for Concurrency
 
-=== Strucutures
+The amount of concurrent data structures in Java is overwhelming, but they can be broken down into a few different types: Blocking, Concurrent, CopyOnWrite, and Delay.
 
-Blocking
-ArrayBlockingQueue<E>
-BlockingDeque<E>
-LinkedBlockingDeque<E>
-PriorityBlockingQueue<E>
-These are blocking as well
-    TransferQueue<E>
-    LinkedTransferQueue<E>
-    SynchronousQueue<E>
+=== Collections.SynchronizedMap/Set/List
 
-Concurrent
+The most basic thread-safe structures. They use a mutual exclusion lock for methods so only one thread can act on them at a time. 
+
+Warning: User must manually synchronize on the returned collection when traversing it via Iterator, Spliterator or Stream. TODO - example
+
+=== Concurrent
+
+Concurrent structures are threadsafe but do not enforce a single exclusion lock. Multiple threads can read and write them simultaneously.
+They are
+They are weakly consistent
+
 ConcurrentHashMap<K,V>
 ConcurrentLinkedDeque<E>
 ConcurrentMap<K,V>
 ConcurrentNavigableMap<K,V>
 ConcurrentSkipListMap<K,V>
 
+TODO: why is there not a concurrent list? Don't get the same advantages
+
+=== Blocking Queue
+
+A BlockingQueue is a thread-safe queue that blocks when...
+
+1. calling `put` on a full queue. The method will block until the queue is no longer full, meaning a consumer has removed something from the queue.
+2. calling `take` on an empty queue. The method will block until the queue is no longer empty, meaning a producer has added something to the queue.
+
+These work well with producer-consumer patterns and mitigate `OutOfMemory` errors when the producer is faster than the consumer since the queue will block the producer when the queue is full.
+
+==== Examples
+ArrayBlockingQueue<E>
+BlockingDeque<E>
+LinkedBlockingDeque<E>
+PriorityBlockingQueue<E>
+
+
+=== TransferQueue
+
+A Transfer Queue is a "BlockingQueue in which producers may wait for consumers to receive elements".
+A normal blocking queue allows the producer and consumer to operate independtly while a TransferQueue ensures that a consumer accepts the value that a producer is writing.
+This works well for communicating messages between threads.
+The special methods are `transfer` and `tryTransfer`.
+
+==== Examples
+TransferQueue<E>
+LinkedTransferQueue<E>
+SynchronousQueue<E>
+
+
+=== CopyOnWrite
+
+"A thread-safe data structure in which all mutative operations (add, set, and so on) are implemented by making a fresh copy".
+So a thread that iterates through a CopyOnWrite structure actually iterates through a read-only snapshot of the structure.
+If the structure is mutated while being iterated over, a new copy that does not interfere with the iterator snapshot is created.
+This works well when read or traversal operations greatly outnumber write operations because the reads do not have to be synchronized, but the writes are expensive since it has to copy the entire structure.
+
 CopyOnWrite
 CopyOnWriteArrayList<E>
 
-Transfer
 
+=== Delay
 DelayQueue<E extends Delayed>
 
 
-=== Core
+== Core
 
 Callable<V>
 CompletableFuture<T>
@@ -43,7 +91,7 @@ ThreadFactory
 TimeoutException
 ExecutionException
 
-=== ExecutionService
+== ExecutionService
 
 CompletionService<V>
 ExecutorCompletionService<V>
@@ -54,13 +102,12 @@ ThreadPoolExecutor
 ExecutorService
 ForkJoinPool
 
-=== Helpers
+== Helpers
 
 CountDownLatch
 CyclicBarrier
 Phaser
 Exchanger<V>
-
 
 == Atomic
 
@@ -79,5 +126,9 @@ ReentrantLock
 ReentrantReadWriteLock
 StampedLock
 
+== ThreadLocal
+
+== Scope
+
 == Questions
-blocking queue vs 
+transfer queue vs sync queue vs blocking queue
