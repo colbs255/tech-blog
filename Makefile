@@ -3,6 +3,6 @@ build:
 run: build
 	open build/index.html
 clean:
-	rm -rf build/*.html
+	rm -rf build
 
 .PHONY: clean run
