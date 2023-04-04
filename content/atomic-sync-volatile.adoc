@@ -34,7 +34,7 @@ class Example {
 }
 ----
 
-Try running it, and it probably will not terminate; the background thread will always think `stopRequested` is still false and continue to loop.
+Try running it, and it probably will not terminate; the background thread will always think `stopRequested` is false and continue to loop.
 Why? The java memory model does not guarantee that writes on a variable in one thread will appear in another thread.
 In other words, memory modifications are not always *visible* to other threads.
 
@@ -69,7 +69,7 @@ This shows how operations (even 1 liners) can be interleaved in strange ways tha
 
 == Solutions for Concurrency
 
-Concurrent programming is **hard** and that's why these constructs exist; they provide guarantees that allow us to better reason about our concurrent programs.
+Concurrent programming is **hard** and that's why these constructs exist; they provide guarantees that allow us to better reason about our programs.
 
 === Volatile
 
@@ -82,14 +82,14 @@ This means synchronized blocks would work for both examples, but they are less p
 
 === Atomic Variables
 Atomic variables have volatile semantics with `get` and `set` but also solve the atomicity problem via compare and set (CAS) operations (`compareAndSet` method).
-Unlike synchronized blocks, they are nonblocking, resulting in better performance than synchronized blocks in _most_ cases.
+Unlike synchronized blocks, they are non-blocking, resulting in better performance than synchronized blocks in _most_ cases.
 
 [NOTE]
 .What is CAS?
 ====
 CAS is a form of non-locking synchronization.
 It is an atomic instruction that checks the current value and only applies the new value if the current value equals the expected value.
-They are generally more performant than traditional locks because they don't actually lock or have to reschedule threads on the CPU.
+CAS is generally more performant than traditional locks because it does not actually lock or have to reschedule threads on the CPU.
 Like everything else, CAS comes with trade-offs. Designing algorithms with CAS is more difficult than using a standard lock.
 They are actually less performant when contention is **very** high, but still faster in most real world cases.
 ====
