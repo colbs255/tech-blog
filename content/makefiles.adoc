@@ -9,18 +9,14 @@ Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `mak
 
 [source,make]
 ----
-all: build run
-reveal.js:
-	echo Downloading reveal.js
-	git clone -b 3.9.2 --depth 1 https://github.com/hakimel/reveal.js.git
-	rm -rf reveal.js/.git
-build: reveal.js
-	asciidoctor-revealjs presentation.adoc
-run:
-	open presentation.html
+build:
+	asciidoctor -D build --backend=html5 content/*.adoc
+run: build
+	open build/index.html
 clean:
-	rm *.html
-	rm -rf reveal.js
+	rm -rf build
+
+.PHONY: clean run
 ----
 
 == Example
