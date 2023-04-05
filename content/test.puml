@@ -1,0 +1,108 @@
+@startuml
+skinparam componentStyle rectangle
+!include https://raw.githubusercontent.com/bschwarz/puml-themes/master/themes/cerulean/puml-theme-cerulean.puml
+!pragma layout smetana
+
+' package "Create Stream" as createStream {
+'     [Collection#stream]
+'     [Stream#empty]
+'     [Stream#of]
+'     [Stream#ofNullable]
+'     [Stream#generate]
+'     [Stream#iterate]
+'     [Stream#concat]
+'     [Stream#builder]
+' }
+'
+
+package "Create Stream" as createStream {
+    component temp [
+        Collection#stream
+        Stream#empty
+        Stream#of
+        Stream#ofNullable
+        Stream#generate
+        Stream#iterate
+        Stream#concat
+        Stream#builder
+    ]
+}
+
+' package "Intermediate Operation" as intermediate {
+'     [map]
+'     [distinct]
+'     [dropWhile]
+'     [filter]
+'     [flatMap]
+'     [limit]
+'     [map]
+'     [mapMulti]
+'     [mapToDouble]
+'     [mapToInt]
+'     [mapToLong]
+'     [peek]
+'     [skip]
+'     [sorted]
+'     [takeWhile]
+' }
+
+package "Intermediate Operation" as intermediate {
+    component intInner [
+        map
+        distinct
+        dropWhile
+        filter
+        flatMap
+        limit
+        map
+        mapMulti
+        mapToDouble
+        mapToInt
+        mapToLong
+        peek
+        skip
+        sorted
+        takeWhile
+    ]
+}
+
+' package "Terminal Operation" as terminal {
+'     [reduce]
+'     [allMatch]
+'     [anyMatch]
+'     [collect]
+'     [toArray]
+'     [toList]
+'     [count]
+'     [findAny]
+'     [findFirst]
+'     [forEach]
+'     [max]
+'     [min]
+'     [reduce]
+' }
+
+package "Terminal Operation" as terminal {
+    component termInner [
+        reduce
+        allMatch
+        anyMatch
+        collect
+        toArray
+        toList
+        count
+        findAny
+        findFirst
+        forEach
+        max
+        min
+        reduce
+    ]
+}
+
+createStream --right--> intermediate
+createStream --right--> terminal: intermediate operations don't have to be performed
+intermediate --up--> intermediate: intermediate operations can be repeated and chained
+intermediate --right--> terminal
+
+@enduml

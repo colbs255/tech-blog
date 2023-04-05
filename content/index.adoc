@@ -3,3 +3,5 @@
 == Pages
 * xref:atomic-sync-volatile.adoc[Volatile, Sync, Atomic]
 * xref:makefiles.adoc[Makefiles are still useful]
+* image::test.png[Makefiles are still useful]
+
