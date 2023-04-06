@@ -21,10 +21,11 @@ clean:
 
 == Example
 
-If you use a bunch of build scripts, consider make
+If you use a bunch of build scripts, consider a makefile!
 
 == Reasons
 
 * Basic syntax
+* Lot of power with a few lines of code
 * make is everywhere
 * vim has a built in make command
