@@ -2,7 +2,7 @@
 
 Repo for my technical "blog" posts.
 Blog is here: https://colbs255.github.io/tech-notes/[Tech Notes blog].
-Asciidoc files in `content` folder are converted into html files in `site` and rendered via github pages.
+Asciidoc files in `content` folder are converted into html files and rendered via github pages.
 
 == How do I request a topic?
 You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labels=topic-suggestion&template=topic-suggestion.md&title=Topic+Suggesion[Topic Suggestion] issue.
