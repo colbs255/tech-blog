@@ -130,5 +130,3 @@ Use it for small projects and tasks.
 Figure out the complex commands you need for building/running then put them in a small `Makefile`.
 If you notice yourself making several small scripts, consider placing them in one makefile.
 Now you just have to type `make`.
-
-== How should you not use make?
