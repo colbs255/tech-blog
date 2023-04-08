@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Spliterator</title>
+<date>2023-04-08</date>
+</info>
+<simpara>Like an iterator, spliterators allow you to traverse through elements of a source, but can also be used in parallel algorithms.
+They are arguably easier to reason about than Iterators and can be easily converted to a streams.</simpara>
+<section xml:id="_what_is_an_iterator">
+<title>What is an Iterator?</title>
+<simpara>Let&#8217;s walk through iterators first since it will help with understanding Spliterators.
+An iterator is a built in java interface with methods for traversing through a collection.
+Consider this example where we print the elements of a list:</simpara>
+<programlisting language="java" linenumbering="unnumbered">var numbers = List.of(1, 2, 3);
+for (int i = 0; i &lt; numbers.size(); i++) {
+    System.out.println(numbers.get(i));
+}</programlisting>
+<simpara>This works, but what if we want to do the same for a <literal>Set</literal>? Sets do not have a get by index method like a list, so how do we iterate through its elements? Yes, an iterator!</simpara>
+<programlisting language="java" linenumbering="unnumbered">var numbers = Set.of(1, 2, 3);
+for (Iterator&lt;Integer&gt; iterator = numbers.iterator(); iterator.hasNext();) {
+    int number = iterator.next();
+    System.out.println(number);
+}</programlisting>
+<simpara>Hooray! We can now traverse through arbitary collections with the same lines of code!
+But&#8230;&#8203; this comes at a cost - the approach is ugly and has a lot of boilerplate for simply traversing a collection.
+And the java language designers must have agreed because they created an easier method the for-each loop:</simpara>
+<programlisting language="java" linenumbering="unnumbered">var numbers = Set.of(1, 2, 3);
+for (int number: numbers) {
+    System.out.println(number);
+}</programlisting>
+<simpara>Yes, the beloved for-each loop is just a clean way of using an iterator, and it&#8217;s the most common way of using iterators.</simpara>
+</section>
+<section xml:id="_how_do_spliterators_differ_from_iterators">
+<title>How do Spliterators differ from Iterators?</title>
+<simpara>Spliterators are similar to iterators but they&#8230;&#8203;</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>include a few extra methods that allows it the Spliterator to be split and also converted to a stream:</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara><literal>int characteristics()</literal></simpara>
+</listitem>
+<listitem>
+<simpara><literal>long estimateSize()</literal></simpara>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>merge <literal>T next()</literal> and <literal>boolean hasNext()</literal> into <literal>boolean tryAdvance(Consumer&lt;? super T&gt; action)</literal></simpara>
+</listitem>
+<listitem>
+<simpara>do not have a <literal>E remove()</literal> method</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_how_do_i_make_a_spliterator">
+<title>How do I make a Spliterator?</title>
+<simpara>Let&#8217;s make a spliterator for an array list</simpara>
+</section>
+<section xml:id="_how_do_i_create_a_stream_from_a_spliterator">
+<title>How do I create a stream from a Spliterator?</title>
+<simpara>This is the easiest part of the article, let&#8217;s say you have a Spliterator for integers, you can convert it a streeam like this:</simpara>
+<programlisting language="java" linenumbering="unnumbered">Spliterator&lt;Integer&gt; yourSpliterator = List.of(1, 2, 3).spliterator();
+Stream&lt;Integer&gt; yourStream = StreamSupport.stream(yourSpliterator, true);
+yourStream
+        .filter(v -&gt; v % 2 == 1)
+        .count();</programlisting>
+</section>
+</article>

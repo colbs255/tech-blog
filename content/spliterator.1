@@ -1,0 +1,155 @@
+'\" t
+.\"     Title: Spliterator
+.\"    Author: [see the "AUTHOR(S)" section]
+.\" Generator: Asciidoctor 2.0.18
+.\"      Date: 2023-04-08
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "SPLITERATOR" "1" "2023-04-08" "\ \&" "\ \&"
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.ss \n[.ss] 0
+.nh
+.ad l
+.de URL
+\fI\\$2\fP <\\$1>\\$3
+..
+.als MTO URL
+.if \n[.g] \{\
+.  mso www.tmac
+.  am URL
+.    ad l
+.  .
+.  am MTO
+.    ad l
+.  .
+.  LINKSTYLE blue R < >
+.\}
+.sp
+Like an iterator, spliterators allow you to traverse through elements of a source, but can also be used in parallel algorithms.
+They are arguably easier to reason about than Iterators and can be easily converted to a streams.
+.SH "WHAT IS AN ITERATOR?"
+.sp
+Let\(cqs walk through iterators first since it will help with understanding Spliterators.
+An iterator is a built in java interface with methods for traversing through a collection.
+Consider this example where we print the elements of a list:
+.sp
+.if n .RS 4
+.nf
+.fam C
+var numbers = List.of(1, 2, 3);
+for (int i = 0; i < numbers.size(); i++) {
+    System.out.println(numbers.get(i));
+}
+.fam
+.fi
+.if n .RE
+.sp
+This works, but what if we want to do the same for a \f(CRSet\fP? Sets do not have a get by index method like a list, so how do we iterate through its elements? Yes, an iterator!
+.sp
+.if n .RS 4
+.nf
+.fam C
+var numbers = Set.of(1, 2, 3);
+for (Iterator<Integer> iterator = numbers.iterator(); iterator.hasNext();) {
+    int number = iterator.next();
+    System.out.println(number);
+}
+.fam
+.fi
+.if n .RE
+.sp
+Hooray! We can now traverse through arbitary collections with the same lines of code!
+But... this comes at a cost \- the approach is ugly and has a lot of boilerplate for simply traversing a collection.
+And the java language designers must have agreed because they created an easier method the for\-each loop:
+.sp
+.if n .RS 4
+.nf
+.fam C
+var numbers = Set.of(1, 2, 3);
+for (int number: numbers) {
+    System.out.println(number);
+}
+.fam
+.fi
+.if n .RE
+.sp
+Yes, the beloved for\-each loop is just a clean way of using an iterator, and it\(cqs the most common way of using iterators.
+.SH "HOW DO SPLITERATORS DIFFER FROM ITERATORS?"
+.sp
+Spliterators are similar to iterators but they...
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.  sp -1
+.  IP " 1." 4.2
+.\}
+include a few extra methods that allows it the Spliterator to be split and also converted to a stream:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.  sp -1
+.  IP " 1." 4.2
+.\}
+\f(CRint characteristics()\fP
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.  sp -1
+.  IP " 2." 4.2
+.\}
+\f(CRlong estimateSize()\fP
+.RE
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.  sp -1
+.  IP " 2." 4.2
+.\}
+merge \f(CRT next()\fP and \f(CRboolean hasNext()\fP into \f(CRboolean tryAdvance(Consumer<? super T> action)\fP
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.  sp -1
+.  IP " 3." 4.2
+.\}
+do not have a \f(CRE remove()\fP method
+.RE
+.SH "HOW DO I MAKE A SPLITERATOR?"
+.sp
+Let\(cqs make a spliterator for an array list
+.SH "HOW DO I CREATE A STREAM FROM A SPLITERATOR?"
+.sp
+This is the easiest part of the article, let\(cqs say you have a Spliterator for integers, you can convert it a streeam like this:
+.sp
+.if n .RS 4
+.nf
+.fam C
+Spliterator<Integer> yourSpliterator = List.of(1, 2, 3).spliterator();
+Stream<Integer> yourStream = StreamSupport.stream(yourSpliterator, true);
+yourStream
+        .filter(v \-> v % 2 == 1)
+        .count();
+.fam
+.fi
+.if n .RE
