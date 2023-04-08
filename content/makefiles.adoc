@@ -4,28 +4,87 @@
 NOTE: This article is in-progress, but it is useful enough to be published.
 
 Yes, that 50 year-old program your professor tried to get you to use is still useful.
-Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit for smaller tasks.
+Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit for small tasks.
 
 == Makefile Example
 
-I won't go into much detail with `Makefile` syntax in this article because there are already many resources on it.
-https://makefiletutorial.com[makefiletutorial] is the best resource I've seen and does a better job explaining `make` than I can.
-Here's a quick example to get you started though:
+Let's start with a scenario: You just learned asciidocs is better than markdown and want to try it out.
+You download https://asciidoctor.org[asciidoctor] and make your first asciidoc:
+
+.example.adoc
+[source,adoc]
+----
+= Makefiles are still useful
+
+Introduction text
+
+== Makefile Example
+
+Example text
+----
+
+You read the https://docs.asciidoctor.org/asciidoctor/latest/cli/[documentation] and convert your first asciidoc into html:
+
+[source,bash]
+----
+asciidoctor example.adoc
+----
+
+You open your generated html:
+
+[source,bash]
+----
+open example.html
+----
+
+You get excited and make more asciidocs - you need the command to convert them all and learn that wildcards work with asciidoctor:
+
+[source,bash]
+----
+asciidoctor *.adoc
+----
+
+You decide you want your generated files to be separate from your source files, so you tell asciidoctor to place them in a `build` directory:
+
+[source,bash]
+----
+asciidoctor -D build *.adoc
+----
+
+At this point, you have a basic development life cycle: make your change, build with your asciidoctor command, open it to preview.
+You don't want to type `asciidoctor -D build *.adoc` every time you make a change, so you use your bash history to repeat the command.
+This works but what if you want to allow others to use your project?
+What if you lose your bash history?
+You do the almost right thing... you make a build script:
+
+.build.sh
+[source,bash]
+----
+asciidoctor -D build *.adoc
+----
+
+Then you make a `run.sh` script also for previewing, and a `clean.sh` script for cleaning the generated files.
+Your `run.sh` technically depends on the build command though - how do you ensure the project has been built before running?
+Make a build and run script?
+Okay, here's the key point: a `Makefile` is a clean and simple way to do all of this:
 
 .Makefile
-[source,makefile]
+[source,Makefile]
 ----
 build:
-	asciidoctor -D build --backend=html5 content/*.adoc
+    asciidoctor -D build *.adoc
 run: build
-	open build/index.html
+    open build/example.html
 clean:
-	rm -rf build
+    rm -rf build
 
 .PHONY: clean run
 ----
 
-This is a `Makefile` for a simple `asciidoc` project. Running `make` inside this directory will run the specified targets:
+NOTE: I won't go into much detail with `Makefile` syntax in this article because there are already many resources on it.
+https://makefiletutorial.com[makefiletutorial] is the best resource I've seen and does a better job explaining `make` than I can.
+
+To use it, just run `make`:
 
 * `make build` converts all `adoc` files in the content folder into `html` and stores them in a `build` folder
 * `make run` runs `make build` if the build directory does not exist then opens `index.html` for previewing
@@ -33,12 +92,19 @@ This is a `Makefile` for a simple `asciidoc` project. Running `make` inside this
 * `make clean run` runs the `clean` target then the `run` target
 * `make` runs the default target which is the first specified target (`build` in this example)
 
-The `.PHONY` part tells make that these targets do not actually correspond to files,
+NOTE: The `.PHONY` part tells make that these targets do not actually correspond to files,
 so it should always run the target even if a file with the same name exists.
 
-== Why should you use make?
+Now your development cycle is simply:
 
-It's simple
+. Make your change
+. Execute `make run`
+
+You don't have to remember a script name and the purpose of the file is obvious for others that are using your code.
+
+== So why should you use make?
+
+It's expressive
 
 * A lot can be accomplished with little code.
 In the example above, a build process was defined in a few lines of code that are easy to follow.
@@ -52,7 +118,7 @@ It's fast
 
 * There is very little overhead/startup time
 
-It standardizes your build process
+It's simple
 
 * Instead of having a different `bash` script in each project you can have a makefile and simply run `make`.
 No need to remember the name of the various commands and script files.
@@ -61,5 +127,5 @@ No need to remember the name of the various commands and script files.
 
 Use it for small projects and tasks.
 Figure out the complex commands you need for building/running then put them in a small `Makefile`.
-Now you just have to type `make`.
 If you notice yourself making several small scripts, consider placing them in one makefile.
+Now you just have to type `make`.
