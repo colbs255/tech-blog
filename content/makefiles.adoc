@@ -84,7 +84,6 @@ clean:
 NOTE: I won't go into much detail with `Makefile` syntax in this article because there are already many resources on it.
 https://makefiletutorial.com[makefiletutorial] is the best resource I've seen and does a better job explaining `make` than I can.
 
-
 To use it, just run `make`:
 
 * `make build` converts all `adoc` files in the content folder into `html` and stores them in a `build` folder
