@@ -28,7 +28,7 @@ jobs:
       id: adocbuild
       uses: tonynv/asciidoctor-action@master
       with:
-          program: "asciidoctor -D site --backend=html5 content/*.adoc"
+          program: "make"
     - name: Debug
       run: tree
     - name: Setup Pages
@@ -36,7 +36,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: 'site'
+          path: 'build'
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
