@@ -7,7 +7,7 @@ build/plantuml.jar:
 	curl -L $(plantuml_url) -o build/plantuml.jar
 build/index.html: build/plantuml.jar
 	java -jar build/plantuml.jar "content/*.puml" build -tpng -Playout=smetana -o $(project_dir)/build
-	asciidoctor -D build --backend=html5 content/*.adoc
+	asciidoctor -D build --backend=html5 -a source-highlighter=highlight.js content/*.adoc 
 run: build/index.html
 	open build/index.html
 clean:

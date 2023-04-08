@@ -1,6 +1,5 @@
 = Volatile and Synchronized and Atomic, Oh My!
 :keywords: java, atomic, cas, volatile, memory-visibility, synchronized
-:source-highlighter: highlight.js
 
 Java provides several constructs for mitigating the complexities of concurrency.
 This article explains why each of these constructs exist and when to use each one.

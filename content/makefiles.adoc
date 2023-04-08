@@ -1,6 +1,5 @@
 = Makefiles are still useful
 :keywords: make, makefile, build
-:source-highlighter: highlight.js
 
 Yes, I am talking about the 1976 build tool: `make` - that thing your old professor always tried to get you to use.
 Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit.
