@@ -1,12 +1,19 @@
 = Makefiles are still useful
 :keywords: make, makefile, build
 
-Yes, I am talking about the 1976 build tool: `make` - that thing your old professor always tried to get you to use.
-Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit.
+NOTE: This article is in-progress, but it is useful enough to be published.
 
-== Syntax?
+Yes, that 50 year-old program your professor tried to get you to use is still useful.
+Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit for smaller tasks.
 
-[source,make]
+== Makefile Example
+
+I won't go into much detail with `Makefile` syntax in this article because there are already many resources on it.
+https://makefiletutorial.com[makefiletutorial] is the best resource I've seen and does a better job explaining `make` than I can.
+Here's a quick example to get you started though:
+
+.Makefile
+[source,makefile]
 ----
 build:
 	asciidoctor -D build --backend=html5 content/*.adoc
@@ -18,13 +25,41 @@ clean:
 .PHONY: clean run
 ----
 
-== Example
+This is a `Makefile` for a simple `asciidoc` project. Running `make` inside this directory will run the specified targets:
 
-If you use a bunch of build scripts, consider a makefile!
+* `make build` converts all `adoc` files in the content folder into `html` and stores them in a `build` folder
+* `make run` runs `make build` if the build directory does not exist then opens `index.html` for previewing
+* `make clean` deletes all the generated `html`
+* `make clean run` runs the `clean` target then the `run` target
+* `make` runs the default target which is the first specified target (`build` in this example)
 
-== Reasons
+The `.PHONY` part tells make that these targets do not actually correspond to files,
+so it should always run the target even if a file with the same name exists.
 
-* Basic syntax
-* Lot of power with a few lines of code
-* make is everywhere
-* vim has a built in make command
+== Why should you use make?
+
+It's simple
+
+* A lot can be accomplished with little code.
+In the example above, a build process was defined in a few lines of code that are easy to follow.
+
+It's everywhere
+
+* No need to worry about installing it. It's already in those servers you are sshing into.
+Even vim has a built in `make` command.
+
+It's fast
+
+* There is very little overhead/startup time
+
+It standardizes your build process
+
+* Instead of having a different `bash` script in each project you can have a makefile and simply run `make`.
+No need to remember the name of the various commands and script files.
+
+== How should you use make?
+
+Use it for small projects and tasks.
+Figure out the complex commands you need for building/running then put them in a small `Makefile`.
+Now you just have to type `make`.
+If you notice yourself making several small scripts, consider placing them in one makefile.
