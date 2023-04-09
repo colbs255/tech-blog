@@ -1,6 +1,6 @@
 project_dir := $(shell pwd)
 plantuml_url := https://github.com/plantuml/plantuml/releases/download/v1.2023.5/plantuml.jar
-asciidoc_attributes := -a source-highlighter=highlight.js -a sectanchors
+asciidoc_attributes := -a source-highlighter=highlight.js -a sectanchors -a sectlinks
 
 build: build/index.html
 build/plantuml.jar:
