@@ -6,7 +6,7 @@ NOTE: This article is in-progress, but it is useful enough to be published.
 Yes, that 50 year-old program your professor tried to get you to use is still useful.
 Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit for small tasks.
 
-== Makefile Example
+== A use case for make
 
 Let's start with a scenario: you just learned asciidoc is better than markdown and want to try it out.
 You download https://asciidoctor.org[asciidoctor] and make your first asciidoc:
@@ -66,6 +66,9 @@ asciidoctor -D build *.adoc
 Then you make a `run.sh` script also for previewing, and a `clean.sh` script for cleaning the generated files.
 Your `run.sh` technically depends on the build command though - how do you ensure the project has been built before running?
 Make a `build_and_run` script?
+
+== The Makefile
+
 Okay, I think you see where I'm going - a `Makefile` is a clean and simple way to do all of this:
 
 .Makefile
@@ -125,13 +128,13 @@ No need to remember the name of the various commands and script files.
 
 == How should you use make?
 
-.Do's and Dont's
+.Do's and Dont's of make
 |===
 |Do...|Don't...
 
 |Use it for small projects, prototyping, non-standard setups
 |Use it for large projects and standard projects like a java project (`maven` or `gradle` would serve you better)
 
-|Keep your commands short and simple
-|Write large scripts inside of make your `Makefile`, extract large code blocks into a script and call it from a `Makefile`
+|Keep your commands short and simple. Extract large code blocks into a script and call it from a `Makefile`
+|Write large scripts inside of make your `Makefile`
 |===
