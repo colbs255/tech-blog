@@ -8,7 +8,7 @@ Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `mak
 
 == Makefile Example
 
-Let's start with a scenario: You just learned asciidocs is better than markdown and want to try it out.
+Let's start with a scenario: you just learned asciidoc is better than markdown and want to try it out.
 You download https://asciidoctor.org[asciidoctor] and make your first asciidoc:
 
 .example.adoc
@@ -30,14 +30,14 @@ You read the https://docs.asciidoctor.org/asciidoctor/latest/cli/[documentation]
 asciidoctor example.adoc
 ----
 
-You open your generated html:
+You open your generated html file:
 
 [source,bash]
 ----
 open example.html
 ----
 
-You get excited and make more asciidocs - you need the command to convert them all and learn that wildcards work with asciidoctor:
+You get excited and make more asciidocs - now you need the command to convert them all. Easy, use a wildcard:
 
 [source,bash]
 ----
@@ -53,7 +53,7 @@ asciidoctor -D build *.adoc
 
 At this point, you have a basic development life cycle: make your change, build with your asciidoctor command, open it to preview.
 You don't want to type `asciidoctor -D build *.adoc` every time you make a change, so you use your bash history to repeat the command.
-This works but what if you want to allow others to use your project?
+This works, but what if you want to allow others to use your project?
 What if you lose your bash history?
 You do the almost right thing... you make a build script:
 
@@ -65,8 +65,8 @@ asciidoctor -D build *.adoc
 
 Then you make a `run.sh` script also for previewing, and a `clean.sh` script for cleaning the generated files.
 Your `run.sh` technically depends on the build command though - how do you ensure the project has been built before running?
-Make a build and run script?
-Okay, here's the key point: a `Makefile` is a clean and simple way to do all of this:
+Make a `build_and_run` script?
+Okay, I think you see where I'm going - a `Makefile` is a clean and simple way to do all of this:
 
 .Makefile
 [source,Makefile]
@@ -107,25 +107,31 @@ You don't have to remember a script name and the purpose of the file is obvious 
 It's expressive
 
 * A lot can be accomplished with little code.
-In the example above, a build process was defined in a few lines of code that are easy to follow.
+In the example above, a build process was defined in a few lines.
 
 It's everywhere
 
-* No need to worry about installing it. It's already in those servers you are sshing into.
-Even vim has a built in `make` command.
+* No need to worry about installing it. It's already in all your servers.
+Even vim has a built in `:make` command.
 
 It's fast
 
-* There is very little overhead/startup time
+* Virtually no startup-time
 
-It's simple
+It's consistent
 
-* Instead of having a different `bash` script in each project you can have a makefile and simply run `make`.
+* Instead of having a different `bash` script in each project you can have a `Makefile` and simply run `make`.
 No need to remember the name of the various commands and script files.
 
 == How should you use make?
 
-Use it for small projects and tasks.
-Figure out the complex commands you need for building/running then put them in a small `Makefile`.
-If you notice yourself making several small scripts, consider placing them in one makefile.
-Now you just have to type `make`.
+.Do's and Dont's
+|===
+|Do...|Don't...
+
+|Use it for small projects, prototyping, non-standard setups
+|Use it for large projects and standard projects like a java project (`maven` or `gradle` would serve you better)
+
+|Keep your commands short and simple
+|Write large scripts inside of make your `Makefile`, extract large code blocks into a script and call it from a `Makefile`
+|===
