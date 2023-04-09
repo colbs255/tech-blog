@@ -8,7 +8,7 @@ Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `mak
 
 == A use case for make
 
-Let's start with a scenario: you just learned asciidoc is better than markdown and want to try it out.
+You just learned asciidoc is better than markdown and want to try it out.
 You download https://asciidoctor.org[asciidoctor] and make your first asciidoc:
 
 .example.adoc
@@ -52,10 +52,10 @@ asciidoctor -D build *.adoc
 ----
 
 At this point, you have a basic development life cycle: make your change, build with your asciidoctor command, open it to preview.
-You don't want to type `asciidoctor -D build *.adoc` every time you make a change, so you use your bash history to repeat the command.
+You don't want to type `asciidoctor -D build *.adoc` every time you make a change though, so you use your bash history to repeat the command.
 This works, but what if you want to allow others to use your project?
 What if you lose your bash history?
-You do the almost right thing... you make a build script:
+You do the _almost_ right thing... you make a build script:
 
 .build.sh
 [source,bash]
