@@ -63,9 +63,9 @@ You do the almost right thing... you make a build script:
 asciidoctor -D build *.adoc
 ----
 
-Then you make a `run.sh` script also for previewing, and a `clean.sh` script for cleaning the generated files.
+Then you make a `run.sh` script for previewing, and a `clean.sh` script for cleaning the generated files.
 Your `run.sh` technically depends on the build command though - how do you ensure the project has been built before running?
-Make a `build_and_run` script?
+Make a `build_and_run` script? No! There's a better way!
 
 == The Makefile
 
