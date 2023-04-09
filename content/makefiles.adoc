@@ -84,8 +84,8 @@ clean:
 .PHONY: clean run
 ----
 
-NOTE: I won't go into much detail with `Makefile` syntax in this article because there are already many resources on it.
-https://makefiletutorial.com[makefiletutorial] is the best resource I've seen and does a better job explaining `make` than I can.
+TIP: I won't go into much detail with `Makefile` syntax here because there are already many resources on it.
+I highly recommend https://makefiletutorial.com[makefiletutorial] if you want to learn more.
 
 To use it, just run `make`:
 
@@ -133,8 +133,8 @@ No need to remember the name of the various commands and script files.
 |Do...|Don't...
 
 |Use it for small projects, prototyping, non-standard setups
-|Use it for large projects and standard projects like a java project (`maven` or `gradle` would serve you better)
+|Use it for large projects or standard projects like java (`maven` or `gradle` would serve you better)
 
-|Keep your commands short and simple. Extract large code blocks into a script and call it from a `Makefile`
+|Keep your commands short and simple. Extract large code blocks into a script and call it from your `Makefile`
 |Write large scripts inside of make your `Makefile`
 |===
