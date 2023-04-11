@@ -1,1 +1,3 @@
-* xref:index.adoc[]
+* xref:atomic-sync-volatile.adoc[]
+* xref:makefiles.adoc[]
+* xref:spliterator.adoc[]

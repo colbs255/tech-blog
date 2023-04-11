@@ -1,6 +1,8 @@
 = Tech Notes
 
-== Pages
+== Welcome!
+
+Cool stuff ahead!
 
 * xref:atomic-sync-volatile.adoc[]
 * xref:makefiles.adoc[]
