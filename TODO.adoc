@@ -1,11 +1,5 @@
 = TODO
 
-== General
-
-* style it
-* navigation
-* autogenerate links/homepage?
-
 == Content
 
 * interrupts
