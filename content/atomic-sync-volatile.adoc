@@ -100,12 +100,12 @@ They are actually less performant when contention is **very** high, but still fa
 | | Volatile | Synchronized | Atomic
 
 | Are changes visible to other threads?
-| Y
-| Y
-| Y
+| Yes
+| Yes
+| Yes
 
 | Does it enable atomicity?
-| N
-| Y
-| Y
+| No
+| Yes
+| Yes
 |===
