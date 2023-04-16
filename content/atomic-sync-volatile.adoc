@@ -1,17 +1,16 @@
 = Volatile and Synchronized and Atomic, Oh My!
 :keywords: java, atomic, cas, volatile, memory-visibility, synchronized
-:source-highlighter: highlight.js
 
-Java provides several constructs for mitigating the complexities of concurrency.
-This article explains why each of these constructs exist and when to use each one.
+Java provides several tools for dealing with concurrency.
+This article explains why each of these tools exist and when to use each one.
 
-== The Difficulties of Concurrency
+== Concurrency is Hard
 
 To understand these constructs, we need to understand the 2 main difficulties with concurrent programming: memory visibility and atomicity.
 
 === Memory Visibility
 
-Consider the program below. It starts a thread that waits for the main thread to set `stopRequested` to true.
+The program below starts a thread that waits for the main thread to set the `stopRequested` variable to true.
 
 [source,java]
 ----
@@ -35,7 +34,7 @@ class Example {
 }
 ----
 
-Try running it, and it probably will not terminate; the background thread will always think `stopRequested` is false and continue to loop.
+If you run it, it probably will not terminate; the background thread will always think `stopRequested` is false and continue to loop.
 Why? The java memory model does not guarantee that writes on a variable in one thread will appear in another thread.
 In other words, memory modifications are not always *visible* to other threads.
 
@@ -64,7 +63,7 @@ Consider 2 threads `a` and `b` running this line simultaneously:
 . a stores 2 into x
 . b stores 2 into x
 
-2 increment operations are performed but the final value is only incremented by 1, clearly that is wrong.
+Two increment operations are performed but the final value is only incremented by 1, clearly that is wrong.
 This shows how operations (even 1 liners) can be interleaved in strange ways that result in bugs - they are not *atomic*.
 
 
@@ -101,12 +100,12 @@ They are actually less performant when contention is **very** high, but still fa
 | | Volatile | Synchronized | Atomic
 
 | Are changes visible to other threads?
-| Y
-| Y
-| Y
+| Yes
+| Yes
+| Yes
 
 | Does it enable atomicity?
-| N
-| Y
-| Y
+| No
+| Yes
+| Yes
 |===

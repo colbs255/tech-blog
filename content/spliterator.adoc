@@ -1,6 +1,5 @@
 = Spliterator
 :keywords: java, spliterator, iterator
-:source-highlighter: highlight.js
 
 Like an iterator, spliterators allow you to traverse through elements of a source, but can also be used in parallel algorithms.
 They are arguably easier to reason about than Iterators and can be easily converted to a streams.
