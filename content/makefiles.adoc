@@ -1,14 +1,12 @@
 = Makefiles are still useful
 :keywords: make, makefile, build
 
-NOTE: This article is in-progress, but it is useful enough to be published.
-
 Yes, that 50 year-old program your professor tried to get you to use is still useful.
 Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit for small tasks.
 
 == A use case for make
 
-You just learned asciidoc is better than markdown and want to try it out.
+Let's walk through a use case for make: you just learned asciidoc is better than markdown and want to try it out.
 You download https://asciidoctor.org[asciidoctor] and make your first asciidoc:
 
 .example.adoc
@@ -37,7 +35,7 @@ You open your generated html file:
 open example.html
 ----
 
-You get excited and make more asciidocs - now you need the command to convert them all. Easy, use a wildcard:
+You get excited and make more asciidocs. How do you need convert them all? Easy, a wildcard:
 
 [source,bash]
 ----
@@ -51,8 +49,13 @@ You decide you want your generated files to be separate from your source files, 
 asciidoctor -D build *.adoc
 ----
 
-At this point, you have a basic development life cycle: make your change, build with your asciidoctor command, open it to preview.
-You don't want to type `asciidoctor -D build *.adoc` every time you make a change though, so you use your bash history to repeat the command.
+At this point, you have a basic development cycle:
+
+. make your change
+. build with your asciidoctor command
+. open your generated files to review them
+
+You do not want to type `asciidoctor -D build *.adoc` every time you make a change though, so you use your bash history to repeat the command.
 This works, but what if you want to allow others to use your project?
 What if you lose your bash history?
 You do the _almost_ right thing... you make a build script:
@@ -69,7 +72,11 @@ Make a `build_and_run` script? No! There's a better way!
 
 == The Makefile
 
+TIP: I won't go into much detail with `Makefile` syntax here because there are already many resources on it.
+I highly recommend https://makefiletutorial.com[makefiletutorial] if you want to learn more.
+
 Okay, I think you see where I'm going - a `Makefile` is a clean and simple way to do all of this:
+
 
 .Makefile
 [source,Makefile]
@@ -84,47 +91,41 @@ clean:
 .PHONY: clean run
 ----
 
-TIP: I won't go into much detail with `Makefile` syntax here because there are already many resources on it.
-I highly recommend https://makefiletutorial.com[makefiletutorial] if you want to learn more.
-
-To use it, just run `make`:
-
-* `make build` converts all `adoc` files in the content folder into `html` and stores them in a `build` folder
-* `make run` runs `make build` if the build directory does not exist then opens `index.html` for previewing
-* `make clean` deletes all the generated `html`
-* `make clean run` runs the `clean` target then the `run` target
-* `make` runs the default target which is the first specified target (`build` in this example)
-
 NOTE: The `.PHONY` part tells make that these targets do not actually correspond to files,
 so it should always run the target even if a file with the same name exists.
 
+To use it, just run `make`:
+
+[horizontal]
+make build:: converts all `adoc` files in the content folder into `html` and stores them in a `build` folder
+make run:: runs `make build` if the build directory does not exist then opens `index.html` for previewing
+make clean:: deletes all the generated `html`
+make clean run:: runs the `clean` target then the `run` target
+make:: runs the default target which is the first specified target (`build` in this example)
+
+
 Now your development cycle is simply:
 
-. Make your change
-. Execute `make run`
+. make your change
+. execute `make clean run`
 
 You don't have to remember a script name and the purpose of the file is obvious for others that are using your code.
 
 == So why should you use make?
 
-It's expressive
-
-* A lot can be accomplished with little code.
-In the example above, a build process was defined in a few lines.
-
-It's everywhere
-
-* No need to worry about installing it. It's already in all your servers.
+[horizontal]
+Expressive::
+A lot can be accomplished with little code.
+The example above defined a build process in a few lines.
+Ubiquitous::
+There is no need to worry about installing make. It's already in all your servers.
+Shells can autocomplete the targets that are defined in your `Makefile`.
 Even vim has a built in `:make` command.
-
-It's fast
-
-* Virtually no startup-time
-
-It's consistent
-
-* Instead of having a different `bash` script in each project you can have a `Makefile` and simply run `make`.
-No need to remember the name of the various commands and script files.
+Versatile::
+Make does not lock you into any specific language or technology. If you can do it in the terminal, you can do it in make.
+Consistent::
+Instead of having a different `bash` script in each project you can have a `Makefile` and simply run `make`.
+There is no need to remember the name of the various commands and script files.
 
 == How should you use make?
 
@@ -132,9 +133,13 @@ No need to remember the name of the various commands and script files.
 |===
 |Do...|Don't...
 
-|Use it for small projects, prototyping, non-standard setups
-|Use it for large projects or standard projects like java (`maven` or `gradle` would serve you better)
+a|
 
-|Keep your commands short and simple. Extract large code blocks into a script and call it from your `Makefile`
-|Write large scripts inside of make your `Makefile`
+* use it for small projects, prototyping, non-standard setups
+* use it for large projects or standard projects like java (`maven` or `gradle` would serve you better)
+
+a|
+
+* keep your commands short and simple. Extract large code blocks into a script and call it from your `Makefile`
+* write large scripts inside of make your `Makefile`
 |===
