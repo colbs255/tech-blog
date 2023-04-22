@@ -1,11 +1,10 @@
 = README
 
-Repo for my technical "blog" posts.
-Blog is here: https://colbs255.github.io/tech-notes/[Tech Notes blog].
-Asciidoc files in `content` folder are converted into html files and rendered via github pages.
+Repo for my https://colbs255.github.io/tech-notes/[Tech Notes blog].
+Asciidoc files in `content` folder are converted into HTML files and rendered via github pages.
 
 == How do I request a topic?
-You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labels=topic-suggestion&template=topic-suggestion.md&title=Topic+Suggesion[Topic Suggestion] issue.
+You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labels=topic-suggestion&template=topic-suggestion.md&title=Topic+Suggesion[topic suggestion] issue.
 
 == How do I suggest a correction or improvement?
-You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labels=&template=correction.md&title=Correction[Correction] issue or submit a pull request.
+You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labels=&template=correction.md&title=Correction[correction] issue or submit a pull request.
