@@ -56,6 +56,11 @@ We have 5 methods that need to be implemented:
 * `startsWith`
 * `contains`
 
+Let's make draw our state machine:
+
+.assertJ State Machine
+image::assertJ-state-diagram.svg[]
+
 === Example: SQL Queries
 
 Let's create a fluent interface for basic database queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).

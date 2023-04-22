@@ -3,5 +3,5 @@ hide empty description
 [*] --> assertState: assertThat
 assertState --> [*]
 
-assertState --> assertState: contains
+assertState --> assertState: contains / hasSizeGreaterThan / isLowerCase / startsWith
 @enduml
