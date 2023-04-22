@@ -35,22 +35,60 @@ assertThat(result)
 
 The assertJ example is...
 
-* more declarative
-* more readable
-* easier to write (auto-complete friendly)
-* less code
+* easier to read (even if you haven't seen assertJ syntax before)
+* easier to write
+* can easily be modified by adding another clause
 
-WARNING: While method chaining is a common technique for fluent interfaces, they are not the same thing. TODO.
+WARNING: Method chaining and fluent interfaces are not the same thing;
+method chaining is a technique that is used to create fluent interfaces.
 
-== Why should you use it?
+== How do you implement it?
+
+=== Construct your state machine
+
+=== Example: assertJ
+
+We have 5 methods that need to be implemented:
+
+* assertThat
+* hasSizeGreaterThan
+* isLowerCase
+* startsWith
+* contains
+
+=== Example: SQL Queries
+
+Let's create a fluent interface for basic database queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
+A SQL query might look like:
+
+[source,sql]
+----
+SELECT PEOPLE.FirstName, PEOPLE.LastName
+FROM PEOPLE
+WHERE AGE > 25
+AND Country = "USA"
+ORDER BY LastName
+----
+
+We can express this query in java with a functional interface like this:
+
+[source,java]
+----
+String query = select(PEOPLE.FIRST_NAME, LAST_NAME)
+    .from(PEOPLE)
+    .where(PEOPLE.AGE.greaterThan(25))
+    .and(PEOPLE.COUNTRY.eq("USA"))
+    .orderBy(PEOPLE.LAST_NAME);
+----
+
+
+== When should you use it?
 
 .Pros
-* order of args
-* have to import each one
+* easy to read/write
+* less to import
 * reads in an awkward way
 
 .Cons
-* harder to implement, have to think about the design
-
-
-== How do you implement it?
+* harder to implement, more code to implement
+* reading the implementation of a fluent interface is not easy
