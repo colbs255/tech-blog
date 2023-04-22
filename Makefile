@@ -7,7 +7,7 @@ build/plantuml.jar:
 	mkdir -p build
 	curl -L $(plantuml_url) -o build/plantuml.jar
 build/index.html: build/plantuml.jar
-	java -jar build/plantuml.jar "content/*.puml" build -tpng -Playout=smetana -o $(project_dir)/build
+	java -jar build/plantuml.jar "content/*.puml" build -tsvg -Playout=smetana -o $(project_dir)/build
 	asciidoctor -D build --backend=html5 $(asciidoc_attributes) content/*.adoc 
 run: build/index.html
 	open build/index.html

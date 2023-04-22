@@ -1,0 +1,7 @@
+@startuml
+hide empty description
+[*] --> assertState: assertThat
+assertState --> [*]
+
+assertState --> assertState: contains
+@enduml

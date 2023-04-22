@@ -50,11 +50,11 @@ method chaining is a technique that is used to create fluent interfaces.
 
 We have 5 methods that need to be implemented:
 
-* assertThat
-* hasSizeGreaterThan
-* isLowerCase
-* startsWith
-* contains
+* `assertThat`
+* `hasSizeGreaterThan`
+* `isLowerCase`
+* `startsWith`
+* `contains`
 
 === Example: SQL Queries
 
