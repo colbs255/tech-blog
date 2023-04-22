@@ -1,7 +1,7 @@
 @startuml
 hide empty description
-[*] --> assertState: assertThat
-assertState --> [*]
+[*] --> AssertState: assertThat
+AssertState --> [*]
 
-assertState --> assertState: contains / hasSizeGreaterThan / isLowerCase / startsWith
+AssertState --> AssertState: contains / hasSizeGreaterThan / isLowerCase
 @enduml

@@ -62,6 +62,7 @@ image::assertJ-state-diagram.svg[]
 This state machine is pretty simple because any of these methods can be called from the same state, so we only have to implement one state.
 Here's our state interface:
 
+.AssertState interface
 [source,java]
 ----
 interface AssertState {
@@ -74,6 +75,7 @@ interface AssertState {
 
 And here's our entry point into our fluent interface assertThat:
 
+.assertThat
 [source,java]
 ----
 public static AssertState assertThat(String s) {
@@ -112,6 +114,7 @@ Now we have our own fluent interface for validating strings in tests!
 Let's create a fluent interface for basic SQL queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
 A SQL query might look like:
 
+.SQL Example
 [source,sql]
 ----
 SELECT PEOPLE.FirstName, PEOPLE.LastName
@@ -121,8 +124,9 @@ AND Country = "USA"
 ORDER BY LastName
 ----
 
-We can express this query in java with a functional interface like this:
+We can express this query in java with a fluent interface like this:
 
+.Fluent interface for SQL queries
 [source,java]
 ----
 String query = select(PEOPLE.FIRST_NAME, LAST_NAME)
@@ -132,6 +136,10 @@ String query = select(PEOPLE.FIRST_NAME, LAST_NAME)
     .orderBy(PEOPLE.LAST_NAME);
 ----
 
+Let's draw our state machine:
+
+.SQL query state machine
+image::sql-query-state-diagram.svg[]
 
 == When should you use it?
 
