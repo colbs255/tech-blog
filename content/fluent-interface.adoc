@@ -1,0 +1,56 @@
+= Fluent Interface
+:keywords: java, fluent, design, language, pattern
+
+A fluent interface is a style that promotes readability and reduces boilerplate for the user.
+Developers should have this style in their toolkit since it encourages expressive code that is **both** easy to read and write.
+
+== What is a fluent interface?
+
+Fluent interfaces are best explained with examples. Take a look at this https://junit.org/junit5/[JUnit] test:
+
+.JUnit assertion
+[source,java]
+----
+String result = operation();
+
+assertTrue(result.length() > 10);
+assertEquals(result.toLowerCase(), result);
+assertTrue(result.startsWith("nemo"));
+assertTrue(result.contains("fish"));
+----
+
+Here's an equivalent test implemented with the functional interface of https://assertj.github.io/doc/[assertJ]:
+
+.assertJ assertions
+[source,java]
+----
+String result = operation();
+
+assertThat(result)
+    .hasSizeGreaterThan(10)
+    .isLowerCase()
+    .startsWith("nemo")
+    .contains("fish");
+----
+
+The assertJ example is...
+
+* more declarative
+* more readable
+* easier to write (auto-complete friendly)
+* less code
+
+WARNING: While method chaining is a common technique for fluent interfaces, they are not the same thing. TODO.
+
+== Why should you use it?
+
+.Pros
+* order of args
+* have to import each one
+* reads in an awkward way
+
+.Cons
+* harder to implement, have to think about the design
+
+
+== How do you implement it?
