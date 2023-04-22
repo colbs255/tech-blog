@@ -15,7 +15,6 @@ String result = operation();
 
 assertTrue(result.length() > 10);
 assertEquals(result.toLowerCase(), result);
-assertTrue(result.startsWith("nemo"));
 assertTrue(result.contains("fish"));
 ----
 
@@ -29,7 +28,6 @@ String result = operation();
 assertThat(result)
     .hasSizeGreaterThan(10)
     .isLowerCase()
-    .startsWith("nemo")
     .contains("fish");
 ----
 
@@ -38,6 +36,7 @@ The assertJ example is...
 * easier to read (even if you haven't seen assertJ syntax before)
 * easier to write
 * can easily be modified by adding another clause
+* do not have to remember the args order
 
 WARNING: Method chaining and fluent interfaces are not the same thing;
 method chaining is a technique that is used to create fluent interfaces.
@@ -48,22 +47,69 @@ method chaining is a technique that is used to create fluent interfaces.
 
 === Example: assertJ
 
-We have 5 methods that need to be implemented:
+We have 4 methods that need to be implemented:
 
 * `assertThat`
 * `hasSizeGreaterThan`
 * `isLowerCase`
-* `startsWith`
 * `contains`
 
-Let's make draw our state machine:
+Let's draw our state machine:
 
 .assertJ State Machine
 image::assertJ-state-diagram.svg[]
 
+This state machine is pretty simple because any of these methods can be called from the same state, so we only have to implement one state.
+Here's our state interface:
+
+[source,java]
+----
+interface AssertState {
+    AssertState hasSizeGreaterThan(int size);
+    AssertState isLowerCase();
+    AssertState startsWith(String s);
+    AssertState contains(String s);
+}
+----
+
+And here's our entry point into our fluent interface assertThat:
+
+[source,java]
+----
+public static AssertState assertThat(String s) {
+    return new AssertState() {
+        @Override
+        public AssertState hasSizeGreaterThan(int size) {
+            if (s.length() <= size) {
+                throw new RuntimeException("...");
+            }
+            return this;
+        }
+
+        @Override
+        public AssertState isLowerCase() {
+            if (!s.toLowerCase().equals(s)) {
+                throw new RuntimeException("...");
+            }
+            return this;
+        }
+
+        @Override
+        public AssertState contains(String other) {
+            if (!s.contains(other)) {
+                throw new RuntimeException("...");
+            }
+            return this;
+        }
+    };
+}
+----
+
+Now we have our own fluent interface for validating strings in tests!
+
 === Example: SQL Queries
 
-Let's create a fluent interface for basic database queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
+Let's create a fluent interface for basic SQL queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
 A SQL query might look like:
 
 [source,sql]

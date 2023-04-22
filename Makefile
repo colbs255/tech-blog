@@ -15,4 +15,4 @@ run: build/index.html
 clean:
 	-rm -rf build
 
-.PHONY: clean build run
+.PHONY: clean build diagrams run
