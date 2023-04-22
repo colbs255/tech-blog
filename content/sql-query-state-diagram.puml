@@ -10,8 +10,8 @@ WhereState --> AndState: and
 AndState --> AndState: and
 AndState --> OrderByState: orderBy
 
-AndState --> [*]
-FromState --> [*]
-WhereState --> [*]
-OrderByState --> [*]
+AndState --> [*]: build
+FromState --> [*]: build
+WhereState --> [*]: build
+OrderByState --> [*]: build
 @enduml
