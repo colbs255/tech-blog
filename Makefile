@@ -6,7 +6,7 @@ build: build/index.html
 build/index.html: diagrams
 	asciidoctor -D build --backend=html5 $(asciidoc_attributes) content/*.adoc 
 diagrams: build/plantuml.jar
-	java -jar build/plantuml.jar "content/*.puml" build -tsvg -Playout=smetana -o $(project_dir)/build
+	java -jar build/plantuml.jar -tsvg -Playout=smetana -theme bluegray "content/*.puml" -o $(project_dir)/build
 build/plantuml.jar:
 	mkdir -p build
 	curl -L $(plantuml_url) -o build/plantuml.jar
