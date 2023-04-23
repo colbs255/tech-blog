@@ -141,6 +141,13 @@ Let's draw our state machine:
 .SQL query state machine
 image::sql-query-state-diagram.svg[]
 
+=== Approaches
+
+. Each state has a builder that it passes around
+    . Little more code but more flexible
+. Bunch of innerclasses with access to the static variable
+    . Less code but less flexible
+
 == When should you use it?
 
 .Pros
