@@ -2,7 +2,7 @@
 :keywords: java, fluent, design, language, pattern
 
 Fluent interfaces promote code readability while also being easy (fun even) for the client to use.
-It's a very powerful style that should be in the toolkit of all developers.
+It's a powerful style that should be in the toolkit of all developers.
 
 == What is a fluent interface?
 
@@ -31,13 +31,14 @@ assertThat(result)
     .contains("fish");
 ----
 
-The assertJ example is...
+The assertJ example has the following advantages:
 
-* easier to read; you can understand it even if you haven't seen the syntax before because it reads like a sentence
-* easier to write: lowers cognitive complexity, editor can auto-complete arguments
+* reads like a sentence
+* easy to read even if you are not familiar with the syntax
+* easy to write and works well with auto-complete
 
-WARNING: Method chaining and fluent interfaces are not the same thing;
-method chaining is one of the techniques is used to create fluent interfaces.
+NOTE: Method chaining and fluent interfaces are not the same thing;
+method chaining is one of the techniques used to create fluent interfaces.
 
 == How do you implement a fluent interface?
 
@@ -140,8 +141,8 @@ And that's it! We have our own fluent interface for string assertions!
 
 === Example: SQL Queries
 
-Let's create a fluent interface for basic SQL queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
-A SQL query might look like:
+Let's try a harder example: a fluent interface for basic SQL queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
+A SQL query might look like this:
 
 .SQL Example
 [source,sql]
@@ -337,7 +338,7 @@ Let's summarize our steps for creating a fluent interface:
 .Pros
 * easy to read/write
 * less to import
-* reads in an awkward way
+* reads in natural way
 
 .Cons
 * harder to implement, more code to implement
