@@ -39,33 +39,33 @@ The assertJ example is...
 * do not have to remember the args order
 
 WARNING: Method chaining and fluent interfaces are not the same thing;
-method chaining is a technique that is used to create fluent interfaces.
+method chaining is one of the techniques is used to create fluent interfaces.
 
 == How do you implement it?
 
-This is the most important clause in the entire article: **a fluent interface is just a state machine**.
-Once you figure out the states and transitions, creating a fluent interface is actually straightforward.
-
-=== Construct your state machine
+This is the most important point of the entire article: **a fluent interface is just a state machine.**.
+Once you model the states and transitions, creating a fluent interface is straightforward.
 
 === Example: assertJ
 
-We have 4 methods that need to be implemented:
+Let's create our own assertJ assertions.
+We need to implement the following methods:
 
 * `assertThat`
 * `hasSizeGreaterThan`
 * `isLowerCase`
 * `contains`
 
-Let's draw our state machine:
+Each method moves us from one state to another state; they are our transitions. Let's draw our state machine:
 
 .assertJ State Machine
 image::assertJ-state-diagram.svg[]
 
 This state machine is pretty simple because any of these methods can be called from the same state, so we only have to implement one state.
-Here's our state interface:
+Each state can be modeled as an interface; the methods on the interface are possible transitions from the state.
+Here's the interface for our `AssertState`:
 
-.AssertState interface
+.AssertState.java
 [source,java]
 ----
 interface AssertState {
@@ -76,7 +76,18 @@ interface AssertState {
 }
 ----
 
-And here's our entry point into our fluent interface assertThat:
+Now we need an entry point into our interface. Let's model that as a static `assertThat` method:
+
+.assertThat
+[source,java]
+----
+public static AssertState assertThat(String s) {
+    ...
+}
+----
+
+So the method takes in the string that we are asserting then outputs an `AssertState`.
+In this example, we can use an anonymous class to implement our interface:
 
 .assertThat
 [source,java]
@@ -110,7 +121,7 @@ public static AssertState assertThat(String s) {
 }
 ----
 
-Now we have our own fluent interface for validating strings in tests!
+And that's it! We have our own fluent interface for string assertions!
 
 === Example: SQL Queries
 
@@ -207,7 +218,9 @@ interface OrderByState {
 }
 ----
 
-If you've made it this far, congrats! It's smooth sailing from here! Create a new class that implements all of these interfaces:
+If you've made it this far, congrats!
+It's smooth sailing from here!
+Let's create a new class that implements all of these interfaces:
 
 .QueryBuilder.java
 [source,java]
@@ -217,7 +230,7 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 }
 ----
 
-Add the properties that we need:
+Now add the properties that we need:
 .QueryBuilder.java
 [source,java]
 ----
@@ -232,7 +245,7 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 
 Then implement our interface methods.
 Notice how the implementation is very similar to the builder pattern.
-The main difference is each method returns a different interface instead of `QueryBuilder`.
+The main difference is each method returns a different type (the next state) instead of the same `QueryBuilder`.
 
 .QueryBuilder.java
 [source,java]
@@ -291,6 +304,17 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
     }
 }
 ----
+
+=== Fluent Interface cookbook
+
+Let's summarize our steps for creating a fluent interface:
+
+. Model your fluent interface as a state machine.
+. Convert your state machine to a set of interfaces.
+    .. Each state is an interface.
+    .. Each transition is a method where the current state is the interface the transition belongs to and the next state is the return type of the method.
+. Create a class with all the fields you need.
+. Implement all your interfaces in your class. Each method should mutate one of your fields and then return itself.
 
 == When should you use it?
 
