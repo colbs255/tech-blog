@@ -1,7 +1,7 @@
 = Fluent Interface
 :keywords: java, fluent, design, language, pattern
 
-A fluent interface is a style that promotes readability and reduces boilerplate for the user.
+A fluent interface is an interface style that promotes readability and is easy for the client to write.
 Developers should have this style in their toolkit since it encourages expressive code that is **both** easy to read and write.
 
 == What is a fluent interface?
@@ -18,7 +18,7 @@ assertEquals(result.toLowerCase(), result);
 assertTrue(result.contains("fish"));
 ----
 
-Here's an equivalent test implemented with the functional interface of https://assertj.github.io/doc/[assertJ]:
+Here's an equivalent test implemented with https://assertj.github.io/doc/[assertJ's] fluent interface:
 
 .assertJ assertions
 [source,java]
@@ -34,7 +34,7 @@ assertThat(result)
 The assertJ example is...
 
 * easier to read (even if you haven't seen assertJ syntax before)
-* easier to write
+* easier to write: lowers cognitive complexity, editor can autocomplete arguments
 * can easily be modified by adding another clause
 * do not have to remember the args order
 
@@ -42,6 +42,9 @@ WARNING: Method chaining and fluent interfaces are not the same thing;
 method chaining is a technique that is used to create fluent interfaces.
 
 == How do you implement it?
+
+This is the most important clause in the entire article: **a fluent interface is just a state machine**.
+Once you figure out the states and transitions, creating a fluent interface is actually straightforward.
 
 === Construct your state machine
 
@@ -141,12 +144,78 @@ Let's draw our state machine:
 .SQL query state machine
 image::sql-query-state-diagram.svg[]
 
-=== Approaches
+.SQL query state machine table
+|===
+| Current State | Transition | Output State
 
-. Each state has a builder that it passes around
-    . Little more code but more flexible
-. Bunch of innerclasses with access to the static variable
-    . Less code but less flexible
+| StartState | select | SelectState
+
+| SelectState | from | FromState
+
+| FromState | where | WhereState
+| | build | EndState
+| | orderBy | OrderByState
+
+| WhereState | and | WhereState
+| | orderBy | OrderByState
+| | build | EndState
+
+| OrderByState | build | EndState
+|===
+
+.StartState.java
+[source,java]
+----
+interface StartState {
+    SelectState select(String column);
+}
+----
+
+.SelectState.java
+[source,java]
+----
+interface SelectState {
+    FromState from(String table);
+}
+----
+
+.FromState.java
+[source,java]
+----
+interface FromState {
+    WhereState where(String clause);
+    OrderByState orderBy(String orderBy);
+    String build();
+}
+----
+
+.WhereState.java
+[source,java]
+----
+interface WhereState {
+    WhereState and(String clause);
+    OrderByState orderBy(String orderBy);
+    String build();
+}
+----
+
+.OrderByState.java
+[source,java]
+----
+interface OrderByState {
+    String build();
+}
+----
+
+If you've made it this far, congrats! It's smooth sailing from here! Create a new class that implements all of these interfaces:
+
+.QueryBuilder.java
+[source,java]
+----
+class QueryBuilder implements StartState, SelectState, FromState, WhereState, OrderByState {
+
+}
+----
 
 == When should you use it?
 

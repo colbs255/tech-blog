@@ -6,11 +6,8 @@ SelectState --> FromState: from
 FromState --> WhereState: where
 FromState --> OrderByState: orderBy
 WhereState --> OrderByState: orderBy
-WhereState --> AndState: and
-AndState --> AndState: and
-AndState --> OrderByState: orderBy
+WhereState --> WhereState: and
 
-AndState --> [*]: build
 FromState --> [*]: build
 WhereState --> [*]: build
 OrderByState --> [*]: build
