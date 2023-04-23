@@ -217,6 +217,81 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 }
 ----
 
+Add the properties that we need:
+.QueryBuilder.java
+[source,java]
+----
+class QueryBuilder implements StartState, SelectState, FromState, WhereState, OrderByState {
+
+    List<String> columns;
+    String table;
+    List<String> conditions = new ArrayList<>();
+    String orderByColumn;
+}
+----
+
+Then implement our interface methods.
+Notice how the implementation is very similar to the builder pattern.
+The main difference is each method returns a different interface instead of `QueryBuilder`.
+
+.QueryBuilder.java
+[source,java]
+----
+class QueryBuilder implements StartState, SelectState, FromState, WhereState, OrderByState {
+
+    List<String> columns;
+    String table;
+    List<String> conditions = new ArrayList<>();
+    String orderByColumn;
+
+    @Override
+    public SelectState select(String column) {
+        columns = List.of(column);
+        return this;
+    }
+
+    @Override
+    public FromState from(String table) {
+        this.table = table;
+        return this;
+    }
+
+    @Override
+    public WhereState where(String clause) {
+        this.conditions.add(clause);
+        return this;
+    }
+
+    @Override
+    public WhereState and(String clause) {
+        this.conditions.add(clause);
+        return this;
+    }
+
+    @Override
+    public OrderByState orderBy(String orderBy) {
+        this.orderByColumn = orderBy;
+        return this;
+    }
+
+    @Override
+    public String build() {
+        String selectComponent = "SELECT " + String.join("," , this.columns)
+                + " FROM " + table;
+
+        String whereComponent = conditions.isEmpty()
+                ? ""
+                : " WHERE " + String.join(" AND ", conditions);
+
+        String orderByComponent = orderByColumn == null
+                ? ""
+                : " ORDER BY " + orderByColumn;
+
+        return selectComponent + whereComponent + orderByComponent;
+    }
+}
+----
+
 == When should you use it?
 
 .Pros
@@ -226,4 +301,4 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 
 .Cons
 * harder to implement, more code to implement
-* reading the implementation of a fluent interface is not easy
+* As you can see, actually designing a fluent interface is not easy.
