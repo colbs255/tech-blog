@@ -42,7 +42,7 @@ method chaining is one of the techniques used to create fluent interfaces.
 
 == How do you implement a fluent interface?
 
-This is the most important point of the entire article: **a fluent interface is just a state machine.**.
+Here is the most important point of the entire article: **a fluent interface is just a state machine.**.
 Once you model the states and transitions, creating a fluent interface is straightforward.
 
 === Example: assertJ
