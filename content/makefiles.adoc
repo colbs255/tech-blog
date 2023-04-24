@@ -135,11 +135,12 @@ There is no need to remember the name of the various commands and script files.
 
 a|
 
-* use it for small projects, prototyping, and non-standard setups
-* keep your commands short and simple. Extract large code blocks into a script and call it from your `Makefile`
+* use make for small projects, prototyping, and non-standard setups
+* keep your commands short and simple
+* extract large code blocks into a script and call it from your `Makefile`
 
 a|
 
-* use it for large projects or standard projects like java (`maven` or `gradle` would serve you better)
-* write large scripts inside of make your `Makefile`
+* use make for large projects or standard projects like java (`maven` or `gradle` would serve you better)
+* write large scripts inside of your `Makefile`
 |===
