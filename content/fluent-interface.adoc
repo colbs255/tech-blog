@@ -1,5 +1,6 @@
 = Fluent Interface
 :keywords: java, fluent, design, language, pattern
+:revdate: April 2023
 
 Fluent interfaces promote code readability while also being easy (fun even) for the client to use.
 It's a powerful style that should be in the toolkit of all developers.

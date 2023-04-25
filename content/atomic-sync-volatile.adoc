@@ -1,5 +1,6 @@
 = Volatile and Synchronized and Atomic, Oh My!
 :keywords: java, atomic, cas, volatile, memory-visibility, synchronized
+:revdate: March 2023
 
 Java provides several tools for dealing with concurrency.
 This article explains why each of these tools exist and when to use each one.
