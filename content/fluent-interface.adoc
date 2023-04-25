@@ -2,8 +2,12 @@
 :keywords: java, fluent, design, language, pattern
 :revdate: April 2023
 
-Fluent interfaces promote code readability while also being easy (fun even) for the client to use.
-It's a powerful style that should be in the toolkit of all developers.
+Fluent interfaces are easy to read.
+Fluent interfaces are easy to use.
+Fluent interfaces are natural.
+That was not a fluent introduction to fluent interfaces;
+here's a more fluent introduction: fluent interfaces read like natural language, making them easy to read and use.
+Fluent interfaces are a powerful technique that promote expressive, maintainable code, and all developers should have them in their toolkit.
 
 == What is a fluent interface?
 
@@ -21,7 +25,7 @@ assertTrue(result.contains("fish"));
 
 Here's an equivalent test implemented with https://assertj.github.io/doc/[assertJ's] fluent interface:
 
-.assertJ assertions
+.assertJ assertion
 [source,java]
 ----
 String result = operation();
@@ -32,11 +36,12 @@ assertThat(result)
     .contains("fish");
 ----
 
-The assertJ example has the following advantages:
+The assertJ example:
 
-* reads like a sentence
-* easy to read even if you are not familiar with the syntax
-* easy to write and works well with auto-complete
+* is easy to read. It reads like a sentence.
+* is easy to write. The editor can auto-complete each method, guiding the developer.
+* has 1 argument for each method. The developer does not have to remember which argument comes first.
+* requires minimal code to add another assertion.
 
 NOTE: Method chaining and fluent interfaces are not the same thing;
 method chaining is one of the techniques used to create fluent interfaces.
