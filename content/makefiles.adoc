@@ -49,7 +49,7 @@ You decide you want your generated files to be separate from your source files, 
 asciidoctor -D build *.adoc
 ----
 
-At this point, you have a basic development cycle:
+You now have a basic development cycle:
 
 . make your change
 . build with your asciidoctor command
@@ -66,14 +66,11 @@ You do the _almost_ right thing... you make a build script:
 asciidoctor -D build *.adoc
 ----
 
-Then you make a `run.sh` script for previewing, and a `clean.sh` script for cleaning the generated files.
+Then you make a `run.sh` script for previewing and a `clean.sh` script for cleaning the generated files.
 Your `run.sh` technically depends on the build command though - how do you ensure the project has been built before running?
 Make a `build_and_run` script? No! There's a better way!
 
 == The Makefile
-
-TIP: I won't go into much detail with `Makefile` syntax here because there are already many resources on it.
-I highly recommend https://makefiletutorial.com[makefiletutorial] if you want to learn more.
 
 Okay, I think you see where I'm going - a `Makefile` is a clean and simple way to do all of this:
 
@@ -91,8 +88,8 @@ clean:
 .PHONY: clean run
 ----
 
-NOTE: The `.PHONY` part tells make that these targets do not actually correspond to files,
-so it should always run the target even if a file with the same name exists.
+TIP: I won't go into much detail with `Makefile` syntax here because there are already many resources on it.
+I highly recommend https://makefiletutorial.com[makefiletutorial] if you want to learn more.
 
 To use it, just run `make`:
 

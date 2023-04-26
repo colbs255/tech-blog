@@ -7,7 +7,7 @@ They are arguably easier to reason about than Iterators and can be easily conver
 == What is an Iterator?
 Let's walk through iterators first since it will help with understanding Spliterators.
 An iterator is a built in java interface with methods for traversing through a collection.
-Consider this example where we print the elements of a list:
+Consider this example that prints the elements of a list:
 
 [source,java]
 ----
@@ -17,7 +17,7 @@ for (int i = 0; i < numbers.size(); i++) {
 }
 ----
 
-This works, but what if we want to do the same for a `Set`? Sets do not have a get by index method like a list, so how do we iterate through its elements? Yes, an iterator!
+This works, but what if you want to do the same for a `Set`? Sets do not have a get by index method like a list, so how do you iterate through its elements? Yes, an iterator!
 
 [source,java]
 ----
@@ -28,7 +28,7 @@ for (Iterator<Integer> iterator = numbers.iterator(); iterator.hasNext();) {
 }
 ----
 
-Hooray! We can now traverse through arbitary collections with the same lines of code!
+Hooray! You can now traverse through arbitary collections with the same lines of code!
 But... this comes at a cost - the approach is ugly and has a lot of boilerplate for simply traversing a collection.
 And the java language designers must have agreed because they created an easier method the for-each loop:
 
