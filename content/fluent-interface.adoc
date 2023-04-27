@@ -5,8 +5,8 @@
 Fluent interfaces are easy to read.
 Fluent interfaces are easy to use.
 Fluent interfaces are natural.
-That was not a fluent introduction to fluent interfaces;
-here's a more fluent introduction: fluent interfaces read like natural language, making them easy to read and use.
+That was not a fluent introduction to fluent interfaces.
+Here's a more fluent introduction: fluent interfaces read like natural language, making them easy to read and use.
 Fluent interfaces are a powerful technique that promote expressive, maintainable code, and all developers should have them in their toolkit.
 
 == What is a fluent interface?
@@ -36,15 +36,18 @@ assertThat(result)
     .contains("fish");
 ----
 
-The assertJ example:
+The assertJ example is easy to read because:
 
-* is easy to read. It reads like a sentence.
-* is easy to write. The editor can auto-complete each method, guiding the developer.
-* has 1 argument for each method. The developer does not have to remember which argument comes first.
-* requires minimal code to add another assertion.
+* the syntax almost reads like a sentence. Someone that has not seen code before can have a rough understanding of what is happening
 
-NOTE: Method chaining and fluent interfaces are not the same thing;
-method chaining is one of the techniques used to create fluent interfaces.
+The assertJ example is also easy to write because:
+
+* each method has 1 argument. Developers do not have to remember the correct order of the arguments
+* the editor can auto-complete each method
+* minimal code is required to add another assertion
+
+NOTE: Method chaining and fluent interfaces are not the same thing.
+Method chaining is one of the techniques used to create fluent interfaces.
 
 == How do you implement a fluent interface?
 
@@ -53,22 +56,23 @@ Once you model the states and transitions, creating a fluent interface is straig
 
 === Example: assertJ
 
-Let's create our own assertJ assertions.
-We need to implement the following methods:
+You can create your own assertJ assertions.
+These methods need to be implemented:
 
 * `assertThat`
 * `hasSizeGreaterThan`
 * `isLowerCase`
 * `contains`
 
-Each method moves us from one state to another state; they are our transitions. Let's draw our state machine:
+Each method moves from one state to another state, meaning methods are the transitions of the state machine.
+Draw the state machine:
 
 .assertJ State Machine
 image::assertJ-state-diagram.svg[]
 
-This state machine is pretty simple because any of these methods can be called from the same state, so we only have one state.
-The `AssertState` state can be modeled as an interface; the methods on the interface are possible transitions from the state.
-Here's the interface for our `AssertState`:
+This state machine is pretty simple because any of these methods can be called from the same state, so only one state is needed.
+The `AssertState` state can be modeled as an interface, with each method representing a transition.
+Here's the interface for the `AssertState`:
 
 .AssertState.java
 [source,java]
@@ -81,14 +85,14 @@ interface AssertState {
 }
 ----
 
-Now we just make a class that implements this interface:
+Now make a class that implements this interface:
 
 .assertThat
 [source,java]
 ----
 class StringAsserter implements AssertState {
 
-    private String actual;
+    private final String actual;
 
     StringAsserter(String actual) {
         this.actual = actual;
@@ -128,7 +132,7 @@ class StringAsserter implements AssertState {
 }
 ----
 
-That's the hard part! Now we just create a nice `assertThat` method for the client:
+That's the hard part! Now create a nice `assertThat` method for the client:
 
 .assertThat entrypoint
 [source,java]
@@ -140,10 +144,10 @@ class CustomAssertions {
 }
 ----
 
-NOTE: The return type of the method is our interface `AssertState` NOT our implementation `StringAsserter`.
-We don't want to expose our implementation to the client.
+NOTE: The return type of the method is the interface `AssertState` NOT the implementation `StringAsserter`.
+You do not want to expose your implementation to the client.
 
-And that's it! We have our own fluent interface for string assertions!
+And that's it! You made your own fluent interface for string assertions!
 
 === Example: SQL Queries
 
@@ -160,7 +164,7 @@ AND Country = "USA"
 ORDER BY LastName
 ----
 
-We can express this query in java with a fluent interface like this:
+You can express this query in java with a fluent interface like this:
 
 .Fluent interface for SQL queries
 [source,java]
@@ -172,7 +176,7 @@ String query = select(PEOPLE.FIRST_NAME, LAST_NAME)
     .orderBy(PEOPLE.LAST_NAME);
 ----
 
-Let's draw our state machine:
+Let's draw the state machine:
 
 .SQL query state machine
 image::sql-query-state-diagram.svg[]
@@ -240,9 +244,7 @@ interface OrderByState {
 }
 ----
 
-If you've made it this far, congrats!
-It's smooth sailing from here!
-Let's create a new class that implements all of these interfaces:
+Now create a class that implements all of these interfaces:
 
 .QueryBuilder.java
 [source,java]
@@ -252,20 +254,21 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 }
 ----
 
-Now add the properties that we need:
+Now add the fields that are needed to hold the query state:
+
 .QueryBuilder.java
 [source,java]
 ----
 class QueryBuilder implements StartState, SelectState, FromState, WhereState, OrderByState {
 
-    List<String> columns;
-    String table;
-    List<String> conditions = new ArrayList<>();
-    String orderByColumn;
+    private List<String> columns;
+    private String table;
+    private List<String> conditions = new ArrayList<>();
+    private String orderByColumn;
 }
 ----
 
-Then implement our interface methods.
+Then implement the interface methods.
 Notice how the implementation is very similar to the builder pattern.
 The main difference is each method returns a different type (the next state) instead of the same `QueryBuilder`.
 
@@ -274,10 +277,10 @@ The main difference is each method returns a different type (the next state) ins
 ----
 class QueryBuilder implements StartState, SelectState, FromState, WhereState, OrderByState {
 
-    List<String> columns;
-    String table;
-    List<String> conditions = new ArrayList<>();
-    String orderByColumn;
+    private List<String> columns;
+    private String table;
+    private List<String> conditions = new ArrayList<>();
+    private String orderByColumn;
 
     @Override
     public SelectState select(String column) {
@@ -329,15 +332,15 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 
 === Fluent Interface cookbook
 
-Let's summarize our steps for creating a fluent interface:
+Here are the steps for creating a fluent interface:
 
 . Model your fluent interface as a state machine.
 . Convert your state machine to a set of interfaces.
     .. Each state is an interface.
-    .. Each transition is a method where the current state is the interface the transition belongs to and the next state is the return type of the method.
+    .. Each transition is a method, where the current state is the interface the transition belongs to and the next state is the return type of the method.
 . Create a class with all the fields you need.
 . Implement all your interfaces in your class. Each method mutates something in your class and then returns `this`.
-    .. Each method can return a different interface, but we can always return `this` because it implements all of our interfaces.
+    .. Each method can return a different interface, but `this` can be returned because it implements all of the interfaces.
 
 == When should you use fluent interfaces?
 
