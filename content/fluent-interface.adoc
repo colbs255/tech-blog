@@ -7,7 +7,7 @@ Fluent interfaces are easy to use.
 Fluent interfaces are natural.
 That was not a fluent introduction to fluent interfaces.
 Here's a more fluent introduction: fluent interfaces read like natural language, making them easy to read and use.
-Fluent interfaces are a powerful technique that promote expressive, maintainable code, and all developers should have them in their toolkit.
+This article explains what a fluent interface is, how to construct them, and when to use them.
 
 == What is a fluent interface?
 
@@ -36,28 +36,25 @@ assertThat(result)
     .contains("fish");
 ----
 
-The assertJ example is easy to read because:
-
-* the syntax almost reads like a sentence. Someone that has not seen code before can have a rough understanding of what is happening
-
+The assertJ example is easy to read because the syntax reads like a sentence. Someone that has not seen code before can understand it (roughly).
 The assertJ example is also easy to write because:
 
-* each method has 1 argument. Developers do not have to remember the correct order of the arguments
+* each method has 1 argument: developers do not have to remember the correct order of the arguments
 * the editor can auto-complete each method
-* minimal code is required to add another assertion
+* minimal code is required to chain another assertion
 
 NOTE: Method chaining and fluent interfaces are not the same thing.
-Method chaining is one of the techniques used to create fluent interfaces.
+Method chaining is just one of the techniques used to create fluent interfaces.
 
 == How do you implement a fluent interface?
 
-Here is the most important point of the entire article: **a fluent interface is just a state machine.**.
+Here is the most important point of the entire article: **a fluent interface is just a state machine**.
 Once you model the states and transitions, creating a fluent interface is straightforward.
 
 === Example: assertJ
 
-You can create your own assertJ assertions.
-These methods need to be implemented:
+Here is a basic implementation of assertJ assertions for strings.
+The following methods need to be implemented:
 
 * `assertThat`
 * `hasSizeGreaterThan`
@@ -65,7 +62,7 @@ These methods need to be implemented:
 * `contains`
 
 Each method moves from one state to another state, meaning methods are the transitions of the state machine.
-Draw the state machine:
+The first step is drawing the state machine:
 
 .assertJ State Machine
 image::assertJ-state-diagram.svg[]
@@ -151,13 +148,13 @@ And that's it! You made your own fluent interface for string assertions!
 
 === Example: SQL Queries
 
-Let's try a harder example: a fluent interface for basic SQL queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
+Here is a harder example: a fluent interface for basic SQL queries (inspired by the SQL code generator https://www.jooq.org[jOOQ]).
 A SQL query might look like this:
 
 .SQL Example
 [source,sql]
 ----
-SELECT PEOPLE.FirstName, PEOPLE.LastName
+SELECT FirstName, LastName
 FROM PEOPLE
 WHERE AGE > 25
 AND Country = "USA"
@@ -176,7 +173,7 @@ String query = select(PEOPLE.FIRST_NAME, LAST_NAME)
     .orderBy(PEOPLE.LAST_NAME);
 ----
 
-Let's draw the state machine:
+Draw the state machine:
 
 .SQL query state machine
 image::sql-query-state-diagram.svg[]
@@ -344,11 +341,7 @@ Here are the steps for creating a fluent interface:
 
 == When should you use fluent interfaces?
 
-.Pros
-* easy to read/write
-* less to import
-* reads in natural way
-
-.Cons
-* harder to implement, more code to implement
-* As you can see, actually designing a fluent interface is not easy.
+Hopefully you are convinced that fluent interfaces are a powerful concept that promote easy to read and write code;
+however, there are is a drawbacks.
+Implementing them takes some effort; while they encourage readable code, the actual implementation of the fluent interface is not very simple.
+You should consider if the complexity of implementing the fluent style is worth it (in many cases it is.)
