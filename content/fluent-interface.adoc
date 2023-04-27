@@ -101,7 +101,7 @@ class StringAsserter implements AssertState {
     @Override
     public AssertState hasSizeGreaterThan(int expectedSize) {
         if (actual.length() <= expectedSize) {
-            throw new RuntimeException("...");
+            throw new AssertionError(String.format("Expecting size of: '%s' to be greater than %s but is %s", actual, expectedSize, actual.length()));
         }
         return this;
     }
@@ -109,7 +109,7 @@ class StringAsserter implements AssertState {
     @Override
     public AssertState isLowerCase() {
         if (!actual.toLowerCase().equals(actual)) {
-            throw new RuntimeException("...");
+            throw new AssertionError(String.format("Expecting: '%s' to be lowercase", actual));
         }
         return this;
     }
@@ -117,7 +117,7 @@ class StringAsserter implements AssertState {
     @Override
     public AssertState startsWith(String prefix) {
         if (!actual.startsWith(prefix)) {
-            throw new RuntimeException("...");
+            throw new AssertionError(String.format("Expecting: '%s' to start with '%s'", actual, prefix));
         }
         return this;
     }
@@ -125,7 +125,7 @@ class StringAsserter implements AssertState {
     @Override
     public AssertState contains(String substring) {
         if (!actual.contains(substring)) {
-            throw new RuntimeException("...");
+            throw new AssertionError(String.format("Expecting: '%s' to contain '%s'", actual, substring));
         }
         return this;
     }
