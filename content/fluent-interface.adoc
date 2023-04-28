@@ -9,6 +9,8 @@ That was not a fluent introduction to fluent interfaces.
 Here's a more fluent introduction: fluent interfaces read like natural language, making them easy to read and use.
 This article explains what a fluent interface is, how to construct them, and when to use them.
 
+WARNING: This article is still being revised but the content is stable.
+
 == What is a fluent interface?
 
 Fluent interfaces are best explained with examples. Take a look at this https://junit.org/junit5/[JUnit] test:
