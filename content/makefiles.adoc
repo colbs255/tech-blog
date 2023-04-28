@@ -1,5 +1,6 @@
 = Makefiles are still useful
 :keywords: make, makefile, build
+:revdate: March 2023
 
 Yes, that 50 year-old program your professor tried to get you to use is still useful.
 Modern build tools like `maven`, `gradle`, and `bazel` have taken over, but `make` still deserves to be in your toolkit for small tasks.
@@ -106,7 +107,7 @@ Now your development cycle is simply:
 . make your change
 . execute `make clean run`
 
-You don't have to remember a script name and the purpose of the file is obvious for others that are using your code.
+No need to remember a script name, and the purpose of the file is obvious for others that are using your code.
 
 == So why should you use make?
 

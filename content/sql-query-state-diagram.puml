@@ -1,0 +1,14 @@
+@startuml
+hide empty description
+[*] --> SelectState: select
+
+SelectState --> FromState: from
+FromState --> WhereState: where
+FromState --> OrderByState: orderBy
+WhereState --> OrderByState: orderBy
+WhereState --> WhereState: and
+
+FromState --> [*]: build
+WhereState --> [*]: build
+OrderByState --> [*]: build
+@enduml
