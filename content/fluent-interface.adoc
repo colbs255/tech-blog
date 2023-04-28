@@ -156,7 +156,7 @@ A SQL query might look like this:
 ----
 SELECT FirstName, LastName
 FROM PEOPLE
-WHERE AGE > 25
+WHERE Age > 25
 AND Country = "USA"
 ORDER BY LastName
 ----
@@ -166,11 +166,11 @@ You can express this query in java with a fluent interface like this:
 .Fluent interface for SQL queries
 [source,java]
 ----
-String query = select(PEOPLE.FIRST_NAME, LAST_NAME)
+String query = select("FirstName", "LastName")
     .from(PEOPLE)
-    .where(PEOPLE.AGE.greaterThan(25))
-    .and(PEOPLE.COUNTRY.eq("USA"))
-    .orderBy(PEOPLE.LAST_NAME);
+    .where("AGE > 25")
+    .and("Country = \"USA\"");
+    .orderBy("LastName");
 ----
 
 Draw the state machine:
