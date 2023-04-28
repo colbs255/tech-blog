@@ -41,7 +41,7 @@ In other words, memory modifications are not always *visible* to other threads.
 
 === Atomicity
 
-Consider the program below.
+Consider the program below:
 
 [source,java]
 ----
@@ -64,7 +64,7 @@ Consider 2 threads `a` and `b` running this line simultaneously:
 . a stores 2 into x
 . b stores 2 into x
 
-Two increment operations are performed but the final value is only incremented by 1, clearly that is wrong.
+Two increment operations are performed, but the final value is only incremented by 1, clearly that is wrong.
 This shows how operations (even 1 liners) can be interleaved in strange ways that result in bugs - they are not *atomic*.
 
 

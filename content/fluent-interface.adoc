@@ -53,7 +53,7 @@ Once you model the states and transitions, creating a fluent interface is straig
 
 === Example: assertJ
 
-Here is a basic implementation of assertJ assertions for strings.
+Let's implement the fluent interface for the assertJ example.
 The following methods need to be implemented:
 
 * `assertThat`
@@ -82,7 +82,7 @@ interface AssertState {
 }
 ----
 
-Now make a class that implements this interface:
+Now we make a class that implements this interface:
 
 .assertThat
 [source,java]
@@ -129,7 +129,7 @@ class StringAsserter implements AssertState {
 }
 ----
 
-That's the hard part! Now create a nice `assertThat` method for the client:
+That's the hard part! Let's finish this wih a nice `assertThat` method for the client:
 
 .assertThat entrypoint
 [source,java]
@@ -241,7 +241,7 @@ interface OrderByState {
 }
 ----
 
-Now create a class that implements all of these interfaces:
+Let's create a class that implements all of these interfaces:
 
 .QueryBuilder.java
 [source,java]
@@ -251,7 +251,7 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 }
 ----
 
-Now add the fields that are needed to hold the query state:
+Now we add the fields that are needed to hold the query state:
 
 .QueryBuilder.java
 [source,java]
@@ -265,7 +265,7 @@ class QueryBuilder implements StartState, SelectState, FromState, WhereState, Or
 }
 ----
 
-Then implement the interface methods.
+Then we implement the interface methods.
 Notice how the implementation is very similar to the builder pattern.
 The main difference is each method returns a different type (the next state) instead of the same `QueryBuilder`.
 
