@@ -342,6 +342,5 @@ Here are the steps for creating a fluent interface:
 == When should you use fluent interfaces?
 
 Hopefully you are convinced that fluent interfaces are a powerful concept that promote easy to read and write code;
-however, there is a drawback.
-The actual implementation of the fluent interface is not very simple.
-You should consider if the complexity of implementing the fluent style is worth it (in many cases it is.)
+however, the actual implementation of the fluent interface is not very simple.
+You should consider if the complexity of implementing the fluent style is worth it (in many cases it is worth it).
