@@ -176,28 +176,33 @@ String query = select("FirstName", "LastName")
 NOTE: JOOQ defines constants for table and column names.
 I'm not using them in this article because it adds unwarranted complexity to the example, but it is good practice to use them.
 
-Draw the state machine:
+Model your state machine:
 
-.SQL query state machine
+|===
+| SQL Query State Machine | SQL Query State Table
+a| 
+
 image::sql-query-state-diagram.svg[]
 
-.SQL query state machine table
-|===
-| Current State | Transition | Output State
+a| 
 
-| StartState | select | SelectState
+!===
+! Current State ! Transition ! Output State
 
-| SelectState | from | FromState
+! StartState ! select ! SelectState
 
-| FromState | where | WhereState
-| FromState | build | EndState
-| FromState | orderBy | OrderByState
+! SelectState ! from ! FromState
 
-| WhereState | and | WhereState
-| WhereState | orderBy | OrderByState
-| WhereState | build | EndState
+! FromState ! where ! WhereState
+! FromState ! build ! EndState
+! FromState ! orderBy ! OrderByState
 
-| OrderByState | build | EndState
+! WhereState ! and ! WhereState
+! WhereState ! orderBy ! OrderByState
+! WhereState ! build ! EndState
+
+! OrderByState ! build ! EndState
+!===
 |===
 
 Now we create our interfaces from the table values.
