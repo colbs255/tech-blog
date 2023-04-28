@@ -155,7 +155,7 @@ A SQL query might look like this:
 [source,sql]
 ----
 SELECT FirstName, LastName
-FROM PEOPLE
+FROM People
 WHERE Age > 25
 AND Country = "USA"
 ORDER BY LastName
@@ -167,11 +167,14 @@ You can express this query in java with a fluent interface like this:
 [source,java]
 ----
 String query = select("FirstName", "LastName")
-    .from(PEOPLE)
-    .where("AGE > 25")
+    .from("People")
+    .where("Age > 25")
     .and("Country = \"USA\"");
     .orderBy("LastName");
 ----
+
+NOTE: JOOQ defines constants for table and column names.
+I'm not using them in this article because it adds unwarranted complexity to the example, but it is good practice to use them.
 
 Draw the state machine:
 
@@ -187,15 +190,23 @@ image::sql-query-state-diagram.svg[]
 | SelectState | from | FromState
 
 | FromState | where | WhereState
-| | build | EndState
-| | orderBy | OrderByState
+| FromState | build | EndState
+| FromState | orderBy | OrderByState
 
 | WhereState | and | WhereState
-| | orderBy | OrderByState
-| | build | EndState
+| WhereState | orderBy | OrderByState
+| WhereState | build | EndState
 
 | OrderByState | build | EndState
 |===
+
+Now we create our interfaces from the table values.
+For each row in the table:
+
+[horizontal]
+Current State:: is the interface
+Transition:: is a method on the interface
+Output State:: is the return type of the method
 
 .StartState.java
 [source,java]
