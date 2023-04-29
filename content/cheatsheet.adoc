@@ -2,7 +2,7 @@
 :keywords: stow
 :revdate: May 2023
 
-All the stuff I forget.
+This is a living document for all the stuff I forget.
 
 == Stow
 
