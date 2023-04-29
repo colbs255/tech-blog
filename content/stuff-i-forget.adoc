@@ -1,0 +1,19 @@
+= Stuff I Forget
+:keywords: java, stow, bash
+:revdate: May 2023
+
+== Stow
+
+.Stow to a specific directory
+[,bash]
+----
+# Run from directory containing your stow package
+# Note: ~ does not work, use explicit path
+stow -t /path/to/target nvim
+----
+
+.Delete a stow package
+[,bash]
+----
+stow -t /path/to/package/to/delete -D nvim
+----
