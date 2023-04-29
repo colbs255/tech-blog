@@ -1,6 +1,8 @@
-= Stuff I Forget
-:keywords: java, stow, bash
+= Cheatsheets
+:keywords: stow
 :revdate: May 2023
+
+All the stuff I forget.
 
 == Stow
 
