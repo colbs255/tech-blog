@@ -4,3 +4,4 @@
 * xref:atomic-sync-volatile.adoc[Volatile and Synchronized and Atomic, Oh My!]
 * xref:makefiles.adoc[Makefiles are still useful]
 * xref:fluent-interface.adoc[Fluent Interface]
+* xref:cheatsheet.adoc[Cheatsheet]
