@@ -1,7 +1,6 @@
 name: tech-notes
 title: Tech Notes
 version: 0.0.1
-start_page: index.adoc
 asciidoc:
   attributes:
     source-language: asciidoc@
