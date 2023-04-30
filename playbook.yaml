@@ -3,7 +3,7 @@ site:
   start_page: tech-notes::index.adoc
 content:
   sources:
-  - url: git@github.com:colbs255/tech-notes.git
+  - url: ./
     branches: antora2
 ui:
   bundle:
