@@ -1,0 +1,18 @@
+site:
+  title: Colby's Corner
+  start_page: tech-notes::index.adoc
+content:
+  sources:
+  - url: git@github.com:colbs255/tech-notes.git
+    branches: antora2
+ui:
+  bundle:
+    url: /Users/colby/projects/ui/build/ui-bundle.zip
+    snapshot: true
+asciidoc:
+  attributes:
+    sectanchors: true
+runtime:
+  fetch: true
+    # Not sure if I want this yet because it turns sections blue
+    # sectlinks: true
