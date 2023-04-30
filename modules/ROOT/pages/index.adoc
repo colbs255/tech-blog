@@ -2,8 +2,9 @@
 
 == Welcome!
 
-Cool stuff ahead!
+Early stage of my tech blog.
 
 * xref:atomic-sync-volatile.adoc[]
 * xref:makefiles.adoc[]
-* xref:spliterator.adoc[]
+* xref:cheatsheet.adoc[]
+* xref:fluent-interface.adoc[]
