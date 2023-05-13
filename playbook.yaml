@@ -7,7 +7,7 @@ content:
     branches: antora2
 ui:
   bundle:
-    url: /home/colby/projects/sites-ui/build/ui-bundle.zip
+    url: ui/build/ui-bundle.zip
     snapshot: true
 asciidoc:
   attributes:
