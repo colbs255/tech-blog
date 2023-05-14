@@ -12,6 +12,7 @@ ui:
 asciidoc:
   attributes:
     sectanchors: true
+    plantuml-server-url: http://www.plantuml.com/plantuml
   extensions:
   - asciidoctor-plantuml
 runtime:
