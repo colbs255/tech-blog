@@ -1,0 +1,19 @@
+site:
+  title: Colby's Corner
+  start_page: tech-notes::index.adoc
+content:
+  sources:
+  - url: ./
+    branches: HEAD
+ui:
+  bundle:
+    url: ui/build/ui-bundle.zip
+    snapshot: true
+asciidoc:
+  attributes:
+    sectanchors: true
+    plantuml-server-url: http://www.plantuml.com/plantuml
+  extensions:
+  - asciidoctor-plantuml
+runtime:
+  fetch: true

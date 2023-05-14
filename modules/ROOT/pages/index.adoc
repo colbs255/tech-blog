@@ -1,0 +1,10 @@
+= Tech Notes
+
+== Welcome!
+
+Early stage of my tech blog.
+
+* xref:atomic-sync-volatile.adoc[]
+* xref:makefiles.adoc[]
+* xref:cheatsheet.adoc[]
+* xref:fluent-interface.adoc[]

@@ -15,28 +15,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  adocbuild:
+  antorabuild:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    name: Build html from adoc
+    name: Build html from adoc with antora
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Get build container
-      id: adocbuild
-      uses: tonynv/asciidoctor-action@master
+    - name: Install Node.js
+      uses: actions/setup-node@v3
       with:
-          program: "make"
-    - name: Debug
-      run: tree
+        node-version: '16'
+    - name: Generate Site
+      run: make
     - name: Setup Pages
       uses: actions/configure-pages@v3
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-          path: 'build'
+          path: 'build/site'
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
