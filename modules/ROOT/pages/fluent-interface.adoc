@@ -66,7 +66,7 @@ The following methods need to be implemented:
 Each method moves from one state to another state, meaning methods are the transitions of the state machine.
 The first step is drawing the state machine:
 
-.AssertJ State Diagram
+.AssertJ state machine diagram
 [plantuml, svg]
 ....
 include::partial$diagrams/assertJ-state-diagram.puml[]
@@ -187,7 +187,6 @@ Model your state machine:
 | SQL Query State Machine | SQL Query State Table
 a| 
 
-.SQL Query State Diagram
 [plantuml, svg]
 ....
 include::partial$diagrams/sql-query-state-diagram.puml[]
