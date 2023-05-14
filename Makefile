@@ -1,6 +1,6 @@
 project_dir := $(shell pwd)
 plantuml_url := https://github.com/plantuml/plantuml/releases/download/v1.2023.5/plantuml.jar
-build: diagrams
+build:
 	$(MAKE) build -C ui
 	npx antora playbook.yaml
 bootstrap:
