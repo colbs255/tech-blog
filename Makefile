@@ -1,3 +1,4 @@
+all: bootstrap build
 build:
 	$(MAKE) build -C ui
 	npx antora playbook.yaml
@@ -8,4 +9,4 @@ clean:
 	$(MAKE) clean -C ui
 	-rm -rf build
 
-.PHONY: bootstrap clean
+.PHONY: all bootstrap clean

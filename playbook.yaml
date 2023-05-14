@@ -4,7 +4,7 @@ site:
 content:
   sources:
   - url: ./
-    branches: antora2-merge
+    branches: HEAD
 ui:
   bundle:
     url: ui/build/ui-bundle.zip
