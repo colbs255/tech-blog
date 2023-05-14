@@ -66,6 +66,7 @@ The following methods need to be implemented:
 Each method moves from one state to another state, meaning methods are the transitions of the state machine.
 The first step is drawing the state machine:
 
+[plantuml,format=svg]
 ....
 include::partial$diagrams/assertJ-state-diagram.puml[]
 ....
