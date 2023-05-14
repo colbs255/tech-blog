@@ -66,8 +66,9 @@ The following methods need to be implemented:
 Each method moves from one state to another state, meaning methods are the transitions of the state machine.
 The first step is drawing the state machine:
 
-.assertJ State Machine
-image::assertJ-state-diagram.svg[]
+....
+include::partial$diagrams/assertJ-state-diagram.puml[]
+....
 
 This state machine is pretty simple because any of these methods can be called from the same state, so only one state is needed.
 The `AssertState` state can be modeled as an interface, with each method representing a transition.
