@@ -12,6 +12,8 @@ ui:
 asciidoc:
   attributes:
     sectanchors: true
+  extensions:
+  - asciidoctor-diagram
 runtime:
   fetch: true
     # Not sure if I want this yet because it turns sections blue
