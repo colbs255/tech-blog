@@ -17,5 +17,3 @@ asciidoc:
   - asciidoctor-plantuml
 runtime:
   fetch: true
-    # Not sure if I want this yet because it turns sections blue
-    # sectlinks: true

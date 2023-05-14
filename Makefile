@@ -1,4 +1,3 @@
-project_dir := $(shell pwd)
 build:
 	$(MAKE) build -C ui
 	npx antora playbook.yaml
@@ -9,4 +8,4 @@ clean:
 	$(MAKE) clean -C ui
 	-rm -rf build
 
-.PHONY: bootstrap run clean diagrams
+.PHONY: bootstrap clean
