@@ -7,12 +7,14 @@ They are great for both users with simple use cases and developers.
 
 == What is an immutable OS?
 
+Immutable OS means all the
+
 == Why use an immutable OS?
 
 == Example: Fedora Silverblue/Kinoite/Sericea
 
 One of the most well known immutable operating systems is Fedora Silverblue.
-Silverblue is a Fedora desktop OS with the following core attributes:
+Silverblue is a Fedora desktop OS with the following attributes:
 
 * GNOME Desktop Environment
 * rpm-ostree
@@ -29,15 +31,15 @@ The normal Fedora Spins, the main difference between each is the desktop environ
 
 === How to modify the OS?
 
-Immutable fedora gives you 3 options for modifying your system
+Immutable fedora gives you 3 options for modifying your system:
 
-flatpaks:: flatpaks install applications in sandboxes that don't affect the host os.
+flatpaks:: installs applications in sandboxes that don't affect the host os.
 Developers like because it allows them to package their app once and then any linux os can run it.
-Toolbx:: toolbox allows you to run containers (via podman) as if they are your normal command line environment.
-It's an extremely powerful tool as it allows you to create development environments and try out tools without cluttering our host os.
 rpm-ostree:: allows you to install applications with dnf, but applies them to another layer of the OS.
 You must restart the OS for the changes to apply, and all changes can be rolled back with rpm-ostree by booting with the previous version.
 Think of this as a last resort. Always using this defeats the purpose of an immutable OS.
+Toolbx:: toolbox allows you to run containers (via podman) as if they are your normal command line environment.
+It's an extremely powerful tool as it allows you to create development environments and try out tools without cluttering our host os.
 
 NOTE: While the immutable fedora distros come with Toolbx, many prefer distrobox as it provides more flexibility.
 Replacing toolbx with distrobox is trivial with rpm-ostree and their commands are very similar.
