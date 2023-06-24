@@ -8,4 +8,4 @@ Early stage of my tech blog.
 * xref:makefiles.adoc[]
 * xref:cheatsheet.adoc[]
 * xref:fluent-interface.adoc[]
-* xref:immmutable-linux.adoc[]
+* xref:immmutable-os.adoc[]
