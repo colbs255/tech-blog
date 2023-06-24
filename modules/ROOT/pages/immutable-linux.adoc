@@ -1,0 +1,5 @@
+= Immutable Linux
+:keywords: linux,fedora
+:revdate: June 2023
+
+Immutable linux is about creating a base layer of your OS that can't be modified, but tools are provided that make 
