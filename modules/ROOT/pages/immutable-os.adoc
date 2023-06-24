@@ -33,11 +33,14 @@ Immutable fedora gives you 3 options for modifying your system
 
 flatpaks:: flatpaks install applications in sandboxes that don't affect the host os.
 Developers like because it allows them to package their app once and then any linux os can run it.
-Toolbox:: toolbox allows you to run containers (via podman) as if they are your normal command line environment.
+Toolbx:: toolbox allows you to run containers (via podman) as if they are your normal command line environment.
 It's an extremely powerful tool as it allows you to create development environments and try out tools without cluttering our host os.
 rpm-ostree:: allows you to install applications with dnf, but applies them to another layer of the OS.
 You must restart the OS for the changes to apply, and all changes can be rolled back with rpm-ostree by booting with the previous version.
 Think of this as a last resort. Always using this defeats the purpose of an immutable OS.
+
+NOTE: While the immutable fedora distros come with Toolbx, many prefer distrobox as it provides more flexibility.
+Replacing toolbx with distrobox is trivial with rpm-ostree.
 
 === Example Setup
 
