@@ -40,7 +40,7 @@ You must restart the OS for the changes to apply, and all changes can be rolled 
 Think of this as a last resort. Always using this defeats the purpose of an immutable OS.
 
 NOTE: While the immutable fedora distros come with Toolbx, many prefer distrobox as it provides more flexibility.
-Replacing toolbx with distrobox is trivial with rpm-ostree.
+Replacing toolbx with distrobox is trivial with rpm-ostree and their commands are very similar.
 
 === Example Setup
 
