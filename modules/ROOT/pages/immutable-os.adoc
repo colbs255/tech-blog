@@ -14,7 +14,7 @@ Immutable OS means all the
 == Example: Fedora Silverblue/Kinoite/Sericea
 
 One of the most well known immutable operating systems is Fedora Silverblue.
-Silverblue is a Fedora desktop OS with the following attributes:
+Silverblue is a Fedora desktop OS with the following software installed:
 
 * GNOME Desktop Environment
 * rpm-ostree
@@ -22,7 +22,7 @@ Silverblue is a Fedora desktop OS with the following attributes:
 * Toolbox
 
 Fedora actually has 3 immutable flavors.
-The normal Fedora Spins, the main difference between each is the desktop environment:
+Like the normal Fedora Spins, the main difference between each is the desktop environment:
 
 * Silverblue: GNOME based
 * Kinoite: KDE based
