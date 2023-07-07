@@ -1,0 +1,87 @@
+= Bare Git Repo
+:keywords: git, software
+:revdate: July 2023
+
+== What is a bare git repo?
+
+Whenever you clone a repo, a directory is created with 2 components:
+
+. `.git` directory
+    .. All the metadata the git repo needs: branches, logs, objects, commits, etc
+. Working tree
+    .. All the files that are in the default branch of the repo
+    .. You can modify these files, commit, and push them
+    .. This is what you regularly deal with
+
+.Normal Repo example
+----
+normal-repo
+├── .git                        <- .git directory
+│   ├── branches
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── push-to-checkout.sample
+│   │   └── update.sample
+│   ├── info
+│   │   └── exclude
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       └── tags
+└── README.adoc                   <-- working tree
+----
+
+So what is a bare git repo? It's just a repo with only the contents of the `.git` directory.
+
+.Bare Repo Example
+----
+bare-repo
+├── branches
+├── config
+├── description
+├── HEAD
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── fsmonitor-watchman.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-merge-commit.sample
+│   ├── prepare-commit-msg.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── push-to-checkout.sample
+│   └── update.sample
+├── info
+│   └── exclude
+├── objects
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    └── tags
+----
+
+Notice how there is no `.git` folder, the contents of the `.git` folder are at the top level.
+
+== How do I make a bare git repo?
+
+== Why use a bare git repo?
+
