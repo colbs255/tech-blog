@@ -4,7 +4,7 @@ build:
 	npx antora playbook.yaml
 bootstrap:
 	$(MAKE) bootstrap -C ui
-	npm i -D -E @antora/cli@3.1 @antora/site-generator@3.1
+	npm install
 clean:
 	$(MAKE) clean -C ui
 	-rm -rf build
