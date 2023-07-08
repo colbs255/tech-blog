@@ -4,7 +4,7 @@
 
 == What is a bare git repo?
 
-Let's first define what a normal (non-bare) repo is. Whenever you clone a repo, a directory is created with 2 components:
+Let's first define what a normal (non-bare) repo is. When you clone a repo normally, a directory is created with 2 components:
 
 . `.git` directory
     .. All the metadata the git repo needs: branches, logs, objects, commits, etc
@@ -39,7 +39,7 @@ normal-repo
 └── README.adoc                  <-- working directory
 ----
 
-So what is a bare git repo? It's just a repo with only the contents of the `.git` directory.
+A bare repo is just a repo with only the contents of the `.git` directory.
 There is no `.git` folder, the contents of the `.git` folder are at the top level.
 
 .Bare Repo Example
@@ -71,7 +71,7 @@ NOTE: There is one other difference between bare repos and normal repos: bare re
 
 === Servers
 
-Bare repos are used for git servers, meaning a repo that multiple developers push to and pull from.
+Bare repos are used for git servers (i.e., a repo that developers can push to and pull from).
 Let's say you want to host a local git server instead of using GitHub, you could create a bare repo then multiple developers could clone it and push their changes to it.
 This allows you to host your repo anywhere without depending on a service like Github.
 
