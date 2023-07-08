@@ -8,7 +8,7 @@ Whenever you clone a repo, a directory is created with 2 components:
 
 . `.git` directory
     .. All the metadata the git repo needs: branches, logs, objects, commits, etc
-. Working tree
+. Working directory
     .. All the files that are in the default branch of the repo
     .. You can modify these files, commit, and push them
     .. This is what you regularly deal with
@@ -63,7 +63,19 @@ bare-repo
 
 Notice how there is no `.git` folder, the contents of the `.git` folder are at the top level.
 
-== How do I make a bare git repo?
+NOTE: There is one other difference, bare repos have `bare = true` in the `config` file
 
 == Why use a bare git repo?
+
+=== Servers
+
+Bare repos are used for git servers, meaning a repo that developers push to and pull from.
+Let's say you want to host a local git server instead of using GitHub (GitHub uses bare repos as well), you could create the repo then multiple developers could clone it and push their changes to it.
+
+=== Git Worktrees
+
+While they are generally used on the server side, developers can make bare clones of repos which work well with the git work tree flow.
+See xref:git-worktrees.adoc[] for more information.
+
+== How do I make a bare git repo?
 
