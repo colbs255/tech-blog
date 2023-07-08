@@ -8,5 +8,3 @@ Early stage of my tech blog.
 * xref:makefiles.adoc[]
 * xref:cheatsheet.adoc[]
 * xref:fluent-interface.adoc[]
-* xref:bare-git-repo.adoc[]
-* xref:git-worktrees.adoc[]
