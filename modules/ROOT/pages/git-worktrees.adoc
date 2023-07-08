@@ -1,3 +1,39 @@
 = Git Worktrees
 :keywords: git, software
 :revdate: July 2023
+
+image::guido-git-worktrees.png[]
+
+While git worktrees are not very well known, they are a very powerful git feature that allows you to independently work on multiple branches at once.
+
+== What
+
+Like most git concepts, work trees are best explained with an example.
+Imagine you are working on a new feature and a major production issue comes up - you need to quickly switch to a new hotfix branch, but you do not want to lose your changes.
+You have 2 options:
+
+. Commit all your changes to a temporary save commit
+. Stash all your changes and then apply them later after making the hotfix
+
+Neither of these options are ideal - you are saving changes that are not ready to be saved (including untracked files) then changing all the files in your project.
+It's like you are browsing the web with only 1 tab - you always have to navigate back to what you were working on.
+What you really want is a clean context that you can work on without touching the context you are currently on (a new tab).
+You could do this by re-cloning the repo to a separate folder. Then you do not have to do anything with your changes and you can work on the hotfix in your new clone.
+Obviously that's not ideal either:
+
+. You are wasting disk space
+. Cloning takes time
+. Your IDE has to index the project again
+. Fetch operations have to be performed separately for all your repo copies
+
+This is where git worktrees come in, they give you the benefits of having multiple copies of your repo without any of the disadvantages above.
+Think of a worktree as a workspace in your repo; when you create a new worktree, a folder will be created that looks like your normal repo, but you don't actually have to reclone it.
+Going back to the web browser analogy, it's like you have more than 1 tab now! You can switch to a different tab (work tree) without changing what you are looking at in the current tab.
+You can check out a branch in one work tree and then checkout a different branch in another work tree.
+This is why they say work trees allow you to check out more than one branch.
+
+== How
+
+== Best practices/schemes
+
+- Long lived: main, hotfix, feature
