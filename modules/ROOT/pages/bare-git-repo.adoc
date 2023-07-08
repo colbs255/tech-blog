@@ -1,10 +1,10 @@
-= Bare Git Repo
+= Bare Git Repos
 :keywords: git, software
 :revdate: July 2023
 
 == What is a bare git repo?
 
-Let's first define what a normal repo is. Whenever you clone a repo, a directory is created with 2 components:
+Let's first define what a normal (non-bare) repo is. Whenever you clone a repo, a directory is created with 2 components:
 
 . `.git` directory
     .. All the metadata the git repo needs: branches, logs, objects, commits, etc

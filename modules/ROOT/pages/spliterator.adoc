@@ -1,4 +1,4 @@
-= Spliterator
+= Spliterators
 :keywords: java, spliterator, iterator
 
 Like an iterator, spliterators allow you to traverse through elements of a source, but can also be used in parallel algorithms.
