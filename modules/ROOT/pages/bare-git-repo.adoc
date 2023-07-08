@@ -16,7 +16,7 @@ Whenever you clone a repo, a directory is created with 2 components:
 .Normal Repo example
 ----
 normal-repo
-├── .git                        <- .git directory
+├── .git                         <-- .git directory
 │   ├── branches
 │   ├── config
 │   ├── description
@@ -34,7 +34,7 @@ normal-repo
 │   └── refs
 │       ├── heads
 │       └── tags
-└── README.adoc                   <-- working tree
+└── README.adoc                  <-- working tree
 ----
 
 So what is a bare git repo? It's just a repo with only the contents of the `.git` directory.
