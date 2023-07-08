@@ -1,3 +1,3 @@
-= Git Worktree
+= Git Worktrees
 :keywords: git, software
 :revdate: July 2023
