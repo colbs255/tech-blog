@@ -1,7 +1,6 @@
 build:
-	gulp bundle
+	npx gulp bundle
 bootstrap:
-	npm install --global gulp-cli
 	npm install
 clean:
 	-rm -rf build

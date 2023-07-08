@@ -1,4 +1,4 @@
-= Fluent Interface
+= Fluent Interfaces
 :keywords: java, fluent, design, language, pattern
 :revdate: April 2023
 

@@ -4,6 +4,8 @@
     "@antora/site-generator": "3.1.3"
   },
   "dependencies": {
-    "asciidoctor-plantuml": "^1.5.0"
+    "asciidoctor-plantuml": "^1.5.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0"
   }
 }
