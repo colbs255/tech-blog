@@ -31,16 +31,17 @@ Obviously that's not ideal either:
 . Fetch operations have to be performed separately for all your repo copies
 
 This is where git worktrees come in, they give you the benefits of having multiple copies of your repo without the disadvantages above.
-Think of a worktree as a workspace in your repo; when you create a new worktree, a folder will be created that looks like your normal repo, but you don't actually have to re-clone it.
-Going back to the web browser analogy, it's like you have more than 1 tab now! You can switch to a different tab (work tree) without changing what you are looking at in the current tab.
-You can check out a branch in one work tree and then checkout a different branch in another work tree.
+Think of a worktree as a workspace in your repo.
+When you create a new worktree, a folder will be created that looks like your normal repo, but you don't actually have to re-clone it.
+Going back to the web browser analogy, it's like you have more than 1 tab now! You can switch to a different tab (worktree) without changing what you are looking at in the current tab.
+You can check out a branch in one worktree and then checkout a different branch in another worktree.
 This is what we mean when we say worktrees allow you to check out more than one branch!
 
 == How do you use them?
 
 Let's walk through a worktrees example.
 
-Create a new git repo:
+First, create a new git repo:
 
 [,bash]
 ----
@@ -49,7 +50,7 @@ cd test-repo
 git init
 ----
 
-Initializing a repo like this actually also creates a working tree. You can list working trees with 
+Initializing a repo like this actually also creates a working tree. You can list working trees with:
 
 [,bash]
 ----
@@ -96,6 +97,8 @@ cd ../hotfix
 You can make changes, commit, push, and even switch branches in this directory just like a normal repo!
 You can also navigate back to the main repo at anytime to make independent changes.
 
+NOTE: Take a look at the `.git` file in your worktrees. Yes, it's a file not a directory.
+
 To remove a worktree, use the `worktree remove` command with the path to the worktree.
 
 
@@ -113,11 +116,39 @@ git worktree list:: list worktrees
 git worktree add <worktree>:: add a worktree at the specified path
 git worktree remove <worktree>:: remove a worktree, deleting the directory it is stored in
 
-== Add worktree variations
+== Git worktree add variations
 
-- new branch
-- existing branch
-- choose branch you are branching off of
+The `git worktree add <path>` example used above is the simplest form of the command.
+It creates a new worktree at `path` and checks out the branch with that same name.
+If the branch does not exist, it will create one off of the HEAD.
+The command has a few more arguments that makes it more flexible though.
+Here's the full version of the command:
+
+[,bash]
+----
+# Arguments in [] are optional
+git worktree add [-b <new-branch>] <path> [<branch>]
+----
+
+Let's break the command down:
+
+path:: file path your workingtree will be created in
+branch:: branch that will be checked out in your new workingtree. If ommitted, the checked out branch will come from the path.
+`-b new-branch`:: if included, a new branch will be created off of the checked out branch
+
+We can combine these arguments for different use cases:
+
+.Create a workingtree and checkout a branch that is different from the workingtree name
+[,bash]
+----
+git worktree add feature feature/create-user-interface
+----
+
+.Create a workingtree, checkout a branch that is different from the workingtree name, and create a new branch on top of that branch
+[,bash]
+----
+git worktree add feature develop -b feature/create-user-interface
+----
 
 == Best practices/schemes
 
