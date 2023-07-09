@@ -5,7 +5,8 @@
 image::guido-git-worktrees.png[]
 
 Yes, git worktrees are not very well known, but they should be!
-Worktrees allow you to independently checkout multiple branches.
+Worktrees allow you to checkout multiple branches independently.
+They allow you to work on a branch and seamlessly switch to another branch without clobbering the changes you have made in the current branch.
 Once you learn how to use them, it's hard to go back.
 
 == What
