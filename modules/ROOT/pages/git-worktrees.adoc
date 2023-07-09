@@ -22,13 +22,12 @@ Neither of these options are ideal - you are saving changes that are not ready t
 You also have to wait for your IDE to re-index the project.
 It's like you are browsing the web with only 1 tab - you always have to navigate back to what you were working on.
 What you really want is a separate context that you can work on without touching the context you are currently on (a new tab).
-You could do this by re-cloning the repo to a separate folder. Then your working state is preserved and you can work on the hotfix in your new clone.
-Obviously that's not ideal either:
+You could do this by re-cloning the repo to a separate folder. Then your working state is preserved and you can work on the hotfix in your new clone, but that is not ideal either:
 
-. You are wasting disk space
-. Cloning takes time
-. Your IDE has to index the project again
-. Fetch operations have to be performed separately for all your repo copies
+* You are wasting disk space
+* Cloning takes time
+* Your IDE has to index the project again
+* Fetch operations have to be performed separately for all your repo copies
 
 This is where git worktrees come in, they give you the benefits of having multiple copies of your repo without the disadvantages above.
 Think of a worktree as a workspace in your repo.
@@ -132,19 +131,19 @@ git worktree add [-b <new-branch>] <path> [<branch>]
 
 Let's break the command down:
 
-path:: file path your workingtree will be created in
-branch:: branch that will be checked out in your new workingtree. If ommitted, the checked out branch will come from the path.
-`-b new-branch`:: if included, a new branch will be created off of the checked out branch
+path:: The file path your workingtree will be created in.
+branch:: The branch that will be checked out in your new workingtree. If ommitted, the checked out branch will come from the path.
+`-b new-branch`:: If included, a new branch will be created off of the checked out branch with this name.
 
 We can combine these arguments for different use cases:
 
-.Create a workingtree and checkout a branch that is different from the workingtree name
+.Create a workingtree (feature) and checkout a branch that is different from the workingtree name (feature/create-user-interface)
 [,bash]
 ----
 git worktree add feature feature/create-user-interface
 ----
 
-.Create a workingtree, checkout a branch that is different from the workingtree name, and create a new branch on top of that branch
+.Create a workingtree (feature), checkout a branch that is different from the workingtree name (develop), and create a new branch on top of that branch (feature/create-user-interface)
 [,bash]
 ----
 git worktree add feature develop -b feature/create-user-interface
