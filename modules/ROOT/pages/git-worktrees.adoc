@@ -58,17 +58,34 @@ git worktree list
 
 .worktree list output
 ----
+> git worktree list
+/var/home/colby/scratch/test-repo  0000000 [main]
+----
+
+Let's add a file to our new repo and commit it:
+
+[,bash]
+----
+touch test.txt
+git add .
+git commit -m "first"
 ----
 
 Let's create a new worktree for a hotfix:
-
 
 [,bash]
 ----
 git worktree add ../hotfix
 ----
 
-This will create a new directory that looks like a normal git repo. Let's navigate to it:
+This will create a new directory that looks like a normal git repo.
+If we run `git worktree list` again, we will see our new worktree:
+
+.hotfix worktree
+----
+----
+
+Let's navigate to it:
 
 
 [,bash]
