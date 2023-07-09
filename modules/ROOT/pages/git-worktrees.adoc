@@ -5,13 +5,13 @@
 image::guido-git-worktrees.png[]
 
 Yes, git worktrees are not very well known, but they should be!
-Worktrees allow you to checkout multiple branches independently.
-They allow you to work on a branch and seamlessly switch to another branch without clobbering the changes you have made in the current branch.
+Worktrees allow you to checkout multiple branches independently,
+so you can work on a branch then seamlessly switch to another branch without clobbering the changes you have made in the current branch.
 Once you learn how to use them, it's hard to go back.
 
-== What
+== What are git worktrees?
 
-Like most git concepts, worktrees are best explained with an example.
+Like most git concepts, worktrees are best explained by example.
 Imagine you are working on a new feature and a major production issue comes up - you need to quickly switch to a new hotfix branch, but you do not want to lose your changes.
 Without git worktrees, you have 2 options:
 
@@ -21,8 +21,8 @@ Without git worktrees, you have 2 options:
 Neither of these options are ideal - you are saving changes that are not ready to be saved (including untracked files) then changing all the files in your project.
 You also have to wait for your IDE to re-index the project.
 It's like you are browsing the web with only 1 tab - you always have to navigate back to what you were working on.
-What you really want is a clean context that you can work on without touching the context you are currently on (a new tab).
-You could do this by re-cloning the repo to a separate folder. Then you do not have to do anything with your changes and you can work on the hotfix in your new clone.
+What you really want is a separate context that you can work on without touching the context you are currently on (a new tab).
+You could do this by re-cloning the repo to a separate folder. Then your working state is preserved and you can work on the hotfix in your new clone.
 Obviously that's not ideal either:
 
 . You are wasting disk space
@@ -34,9 +34,9 @@ This is where git worktrees come in, they give you the benefits of having multip
 Think of a worktree as a workspace in your repo; when you create a new worktree, a folder will be created that looks like your normal repo, but you don't actually have to re-clone it.
 Going back to the web browser analogy, it's like you have more than 1 tab now! You can switch to a different tab (work tree) without changing what you are looking at in the current tab.
 You can check out a branch in one work tree and then checkout a different branch in another work tree.
-This is why they say work trees allow you to checkout more than one branch!
+This is what we mean when we say worktrees allow you to check out more than one branch!
 
-== How
+== How do you use them?
 
 Let's walk through a worktrees example.
 
@@ -54,12 +54,6 @@ Initializing a repo like this actually also creates a working tree. You can list
 [,bash]
 ----
 git worktree list
-----
-
-.worktree list output
-----
-> git worktree list
-/var/home/colby/scratch/test-repo  0000000 [main]
 ----
 
 Let's add a file to our new repo and commit it:
@@ -88,14 +82,14 @@ If we run `git worktree list` again, we will see our new worktree:
 /var/home/colby/scratch/hotfix     2bb7aa3 [hotfix]
 ----
 
-Let's navigate to it:
+Let's navigate to our new worktree:
 
 [,bash]
 ----
 cd ../hotfix
 ----
 
-You can make changes, commit, push, and even switch branches in this directory like it's a normal repo!
+You can make changes, commit, push, and even switch branches in this directory just like a normal repo!
 You can also navigate back to the main repo at anytime to make independent changes.
 
 To remove a worktree, use the `worktree remove` command with the path to the worktree.
@@ -108,11 +102,16 @@ git worktree remove ../hotfix
 ----
 
 And that's all you need to know to get started with worktrees!
-To summarize, the most common worktree commands you will use are:
+To summarize, these are the most common commands you will use for git worktrees:
 
+[horizontal]
 git worktree list:: list worktrees
 git worktree add <worktree>:: add a worktree at the specified path
 git worktree remove <worktree>:: remove a worktree, deleting the directory it is stored in
+
+WARNING: A branch can only be checked out in one working tree.
+For example, if you check out `main` in one worktree, an error like "fatal: 'main' is already checked out at..." will occur.
+You can create a new branch off of main and check it out in a new worktree though.
 
 == Add worktree variations
 
