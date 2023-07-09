@@ -83,10 +83,12 @@ If we run `git worktree list` again, we will see our new worktree:
 
 .hotfix worktree
 ----
+> git worktree list
+/var/home/colby/scratch/test-repo  2bb7aa3 [main]
+/var/home/colby/scratch/hotfix     2bb7aa3 [hotfix]
 ----
 
 Let's navigate to it:
-
 
 [,bash]
 ----
