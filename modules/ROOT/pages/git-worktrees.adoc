@@ -4,7 +4,9 @@
 
 image::guido-git-worktrees.png[]
 
-While git worktrees are not very well known, they are a very powerful git feature that allows you to independently work on multiple branches at once.
+Yes, git worktrees are not very well known, but they should be!
+Worktrees allow you to independently work on multiple branches at once.
+Once you learn how to use them, it's hard to go back.
 
 == What
 
