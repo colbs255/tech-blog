@@ -115,6 +115,11 @@ git worktree remove <worktree>:: remove a worktree, deleting the directory it is
 
 == Add worktree variations
 
+- new branch
+- existing branch
+- choose branch you are branching off of
+
 == Best practices/schemes
 
+- Use bare repo
 - Long lived: main, hotfix, feature
