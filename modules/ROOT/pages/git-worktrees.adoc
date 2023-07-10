@@ -151,5 +151,7 @@ git worktree add feature develop -b feature/create-user-interface
 
 == Best practices/schemes
 
+TODO
+
 - Use bare repo
 - Long lived: main, hotfix, feature
