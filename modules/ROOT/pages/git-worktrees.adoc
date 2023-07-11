@@ -96,10 +96,9 @@ cd ../hotfix
 You can make changes, commit, push, and even switch branches in this directory just like a normal repo!
 You can also navigate back to the main repo at anytime to make independent changes.
 
-NOTE: Take a look at the `.git` file in your worktrees. Yes, it's a file not a directory.
+NOTE: Take a look at the `.git` file in your worktrees. Unlike what you would find in normal repos, it is a file that links to your bare repo.
 
 To remove a worktree, use the `worktree remove` command with the path to the worktree.
-
 
 [,bash]
 ----
@@ -149,9 +148,36 @@ git worktree add feature feature/create-user-interface
 git worktree add feature develop -b feature/create-user-interface
 ----
 
-== Best practices/schemes
+== Best Practices
 
-TODO
+=== Use workingtrees with bare git repos
 
-- Use bare repo
-- Long lived: main, hotfix, feature
+This is where we get into the more opinionated part of the article.
+When going over `worktree add`, we used paths like this `../branch`.
+This works but it clutters up the parent directory of your git project.
+Some recommend creating a parent folder and storing all your worktrees in there like this:
+
+[,bash]
+----
+mkdir ../myrepo-worktrees
+git worktree add ../myrepo-worktrees/hotfix
+cd ../hotfix
+----
+
+I'm not a fan of this either because you now have 2 separate folders for the same project.
+I recommend cloning your project as a bare repo and then creating your working trees inside the bare repo like this:
+
+[,bash]
+----
+git clone myrepo --bare
+cd myrepo
+git worktree add hotfix
+cd hotfix
+----
+
+Now all your work is in one directory and you do not have to use the `..`.
+
+NOTE: Not familiar with bare git repos? See xref:bare-git-repo.adoc[]
+
+=== Use long-lived workingtrees
+
