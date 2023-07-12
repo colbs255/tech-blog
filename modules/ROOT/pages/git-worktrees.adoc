@@ -131,19 +131,19 @@ git worktree add [-b <new-branch>] <path> [<branch>]
 
 Let's break the command down:
 
-path:: The file path your workingtree will be created in.
-branch:: The branch that will be checked out in your new workingtree. If omitted, the checked out branch will come from the path.
+path:: The file path your worktree will be created in.
+branch:: The branch that will be checked out in your new worktree. If omitted, the checked out branch will come from the path.
 `-b new-branch`:: If included, a new branch will be created off of the checked out branch with this name.
 
 We can combine these arguments for different use cases:
 
-.Create a workingtree (feature) and checkout a branch that is different from the workingtree name (feature/create-user-interface)
+.Create a worktree (feature) and checkout a branch that is different from the worktree name (feature/create-user-interface)
 [,bash]
 ----
 git worktree add feature feature/create-user-interface
 ----
 
-.Create a workingtree (feature), checkout a branch that is different from the workingtree name (develop), and create a new branch on top of that branch (feature/create-user-interface)
+.Create a worktree (feature), checkout a branch that is different from the worktree name (develop), and create a new branch on top of that branch (feature/create-user-interface)
 [,bash]
 ----
 git worktree add feature develop -b feature/create-user-interface
@@ -153,7 +153,7 @@ git worktree add feature develop -b feature/create-user-interface
 
 This is where we get into the more opinionated part of the article.
 
-=== Use workingtrees with bare git repos
+=== Use worktrees with bare git repos
 
 When going over `worktree add`, we used paths like this `../branch`.
 This works but it clutters up the parent directory of your git project.
