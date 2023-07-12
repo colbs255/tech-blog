@@ -75,7 +75,6 @@ Make a `build_and_run` script? No! There's a better way!
 
 Okay, I think you see where I'm going - a `Makefile` is a clean and simple way to do all of this:
 
-
 .Makefile
 [source,Makefile]
 ----
@@ -90,7 +89,7 @@ clean:
 ----
 
 TIP: I won't go into much detail with `Makefile` syntax here because there are already many resources on it.
-I highly recommend https://makefiletutorial.com[makefiletutorial] if you want to learn more.
+I highly recommend this https://makefiletutorial.com[makefile tutorial] if you want to learn more.
 
 To use it, just run `make`:
 

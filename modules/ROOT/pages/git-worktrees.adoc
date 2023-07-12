@@ -4,7 +4,8 @@
 
 image::guido-git-worktrees.png[]
 
-Yes, git worktrees are not very well known, but they should be!
+Yep, even the creator of python did not know about git worktrees.
+They are not well known, but they are quite powerful.
 Worktrees allow you to checkout multiple branches independently,
 so you can work on a branch then seamlessly switch to another branch without clobbering the changes you have made in the current branch.
 Once you learn how to use worktrees, it is hard to go back!
@@ -15,19 +16,19 @@ Like most git concepts, worktrees are best explained by example.
 Imagine you are working on a new feature and a major production issue comes up - you need to quickly switch to a new hotfix branch, but you do not want to lose your changes.
 Without git worktrees, you have 2 options:
 
-. Commit all your changes to a temporary save commit
-. Stash all your changes and then apply them later after making the hotfix
+. commit all changes to a temporary save commit
+. stash all changes and then apply them later after making the hotfix
 
-Neither of these options are ideal - you are saving changes that are not ready to be saved (including untracked files) then changing all the files in your project.
+Neither of these options are ideal - you are saving changes that are not ready to be saved (including untracked files) then changing the state of your project.
 You also have to wait for your IDE to re-index the project.
-It's like you are browsing the web with only 1 tab - you always have to navigate back to what you were working on.
+It's like browsing the web with only 1 tab - you always have to navigate back to what you were working on.
 What you really want is a separate context that you can work on without touching the context you are currently on (a new tab).
-You could do this by re-cloning the repo to a separate folder. Then your working state is preserved and you can work on the hotfix in your new clone, but that is not ideal either:
+You could do this by re-cloning the repo to a separate folder. Then your working state is preserved but that is not ideal either:
 
-* You are wasting disk space
-* Cloning takes time
-* Your IDE has to index the project again
-* Fetch operations have to be performed separately for all your repo copies
+* disk space is wasted
+* cloning takes time
+* IDE has to index the project again
+* fetch operations have to be performed separately for each repo copy
 
 This is where git worktrees come in, they give you the benefits of having multiple copies of your repo without the disadvantages above.
 Think of a worktree as a workspace in your repo.
@@ -181,3 +182,12 @@ NOTE: Not familiar with bare git repos? See xref:bare-git-repo.adoc[]
 
 === Use long-lived workingtrees
 
+I recommend having a few long-lived workingtrees:
+
+main:: Always keep your main branch checked out here.
+Allows you to quickly check the latest state of your repo.
+This replaced the need for me to open the repo in my browser.
+hotfix:: Create your hotfix branches in here.
+
+When working on a new feature, create a new working tree for it and delete it when you are done with the feature.
+This allows you to work on multiple features independently.
