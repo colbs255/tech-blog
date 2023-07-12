@@ -181,13 +181,13 @@ Now all your work is in one directory and you do not have to use the `..`.
 
 NOTE: Not familiar with bare git repos? See xref:bare-git-repo.adoc[]
 
-=== Keep a main long-lived worktree
+=== Use long-lived worktrees
 
-I recommend having a long lived worktree for only your main branch.
+I recommend having a long-lived worktree for only your `main` branch.
 This allows you to quickly check the latest state of your repo.
-Before using this approach, I would frequently open my browser look at the latest in main.
+Depending on your git setup, you may want other long-lived worktrees like `develop` or `release`.
 
-Your teams 
+=== Create worktree for each task
 
-When working on a new feature, create a new worktree for it and delete it when you are done with the feature.
-This allows you to work on multiple features independently.
+When working on a new feature or hotfix, create a new worktree for it and delete it when you are done.
+This allows you to work on multiple changes independently.
