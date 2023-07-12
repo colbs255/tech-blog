@@ -50,7 +50,7 @@ cd test-repo
 git init
 ----
 
-Initializing a repo like this actually also creates a working tree. You can list working trees with:
+Initializing a repo like this actually also creates a worktree. You can list worktrees with:
 
 [,bash]
 ----
@@ -83,7 +83,7 @@ If we run `git worktree list` again, we will see our new worktree:
 /var/home/colby/scratch/hotfix     2bb7aa3 [hotfix]
 ----
 
-WARNING: A branch can only be checked out in one working tree.
+WARNING: A branch can only be checked out in one worktree.
 For example, if you check out `main` in one worktree, an error like "fatal: 'main' is already checked out at..." will occur.
 You can create a new branch off of main and check it out in a new worktree though.
 
@@ -166,7 +166,7 @@ cd ../hotfix
 ----
 
 I'm not a fan of this either because you now have 2 separate folders for the same project.
-I recommend cloning your project as a bare repo and then creating your working trees inside the bare repo like this:
+I recommend cloning your project as a bare repo and then creating your worktrees inside the bare repo like this:
 
 [,bash]
 ----
@@ -189,5 +189,5 @@ Allows you to quickly check the latest state of your repo.
 This replaced the need for me to open the repo in my browser.
 hotfix:: Create your hotfix branches in here.
 
-When working on a new feature, create a new working tree for it and delete it when you are done with the feature.
+When working on a new feature, create a new worktree for it and delete it when you are done with the feature.
 This allows you to work on multiple features independently.
