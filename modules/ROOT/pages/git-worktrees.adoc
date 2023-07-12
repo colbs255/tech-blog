@@ -1,3 +1,193 @@
 = Git Worktrees
 :keywords: git, software
 :revdate: July 2023
+
+image::guido-git-worktrees.png[]
+
+Yep, even the creator of python did not know about git worktrees.
+Worktrees are not well known, but they are quite powerful.
+They allow you to checkout multiple branches independently,
+so you can work on one branch then seamlessly switch to another branch without clobbering the changes you have made in the current branch.
+Once you learn how to use worktrees, it is hard to go back!
+
+== What are they?
+
+Like most git concepts, worktrees are best explained by example.
+Imagine you are working on a new feature and a major production issue comes up - you need to quickly switch to a new hotfix branch, but you do not want to lose your changes.
+Without git worktrees, you have 2 options:
+
+. commit all changes to a temporary save commit
+. stash all changes and then apply them later after making the hotfix
+
+Neither of these options are ideal - you are saving changes that are not ready to be saved (including untracked files) then changing the state of your project.
+You also have to wait for your IDE to re-index the project.
+It's like browsing the web with only 1 tab - you always have to navigate back to what you were working on.
+What you really want is a separate context that you can work on without touching the context you are currently on (a new tab).
+You could do this by re-cloning the repo to a separate folder. Then your working state is preserved but that is not ideal either:
+
+* disk space is wasted
+* cloning takes time
+* IDE has to index the project again
+* fetch operations have to be performed separately for each repo copy
+
+This is where git worktrees come in, they give you the benefits of having multiple copies of your repo without the disadvantages above.
+Think of a worktree as a workspace in your repo.
+When you create a new worktree, a folder will be created that looks like your normal repo, but you don't actually have to re-clone it.
+Going back to the web browser analogy, it's like you have more than 1 tab now! You can switch to a different tab (worktree) without changing what you are looking at in the current tab.
+You can check out a branch in one worktree and then checkout a different branch in another worktree.
+This is what we mean when we say worktrees allow you to check out more than one branch!
+
+== How do you use them?
+
+Let's walk through a worktrees example.
+
+First, create a new git repo:
+
+[,bash]
+----
+mkdir test-repo
+cd test-repo
+git init
+----
+
+Initializing a repo like this actually also creates a worktree. You can list worktrees with:
+
+[,bash]
+----
+git worktree list
+----
+
+Let's add a file to our new repo and commit it:
+
+[,bash]
+----
+touch test.txt
+git add .
+git commit -m "first"
+----
+
+Let's create a new worktree for a hotfix:
+
+[,bash]
+----
+git worktree add ../hotfix
+----
+
+This will create a new directory that looks like a normal git repo.
+If we run `git worktree list` again, we will see our new worktree:
+
+.hotfix worktree
+----
+> git worktree list
+/var/home/colby/scratch/test-repo  2bb7aa3 [main]
+/var/home/colby/scratch/hotfix     2bb7aa3 [hotfix]
+----
+
+WARNING: A branch can only be checked out in one worktree.
+For example, if you check out `main` in one worktree, an error like "fatal: 'main' is already checked out at..." will occur.
+You can create a new branch off of main and check it out in a new worktree though.
+
+Let's navigate to our new worktree:
+
+[,bash]
+----
+cd ../hotfix
+----
+
+You can make changes, commit, push, and even switch branches in this directory just like a normal repo!
+You can also navigate back to the main repo at anytime to make independent changes.
+
+NOTE: Take a look at the `.git` file in your worktrees. Unlike what you would find in normal repos, it is a file that links to your bare repo.
+
+To remove a worktree, use the `worktree remove` command with the path to the worktree.
+
+[,bash]
+----
+cd ../test-repo
+git worktree remove ../hotfix
+----
+
+And that's all you need to know to get started with worktrees!
+To summarize, these are the most common commands you will use for git worktrees:
+
+[horizontal]
+git worktree list:: list worktrees
+git worktree add <worktree>:: add a worktree at the specified path
+git worktree remove <worktree>:: remove a worktree, deleting the directory it is stored in
+
+== Git worktree add variations
+
+The `git worktree add <path>` example used above is the simplest form of the command.
+It creates a new worktree at `path` and checks out the branch with that same name.
+If the branch does not exist, it will create one off of the HEAD.
+The command has a few more arguments that makes it more flexible though.
+Here's the full version of the command:
+
+[,bash]
+----
+# Arguments in [] are optional
+git worktree add [-b <new-branch>] <path> [<branch>]
+----
+
+Let's break the command down:
+
+path:: The file path your worktree will be created in.
+branch:: The branch that will be checked out in your new worktree. If omitted, the checked out branch will come from the path.
+`-b new-branch`:: If included, a new branch will be created off of the checked out branch with this name.
+
+We can combine these arguments for different use cases:
+
+.Create a worktree (feature) and checkout a branch that is different from the worktree name (feature/create-user-interface)
+[,bash]
+----
+git worktree add feature feature/create-user-interface
+----
+
+.Create a worktree (feature), checkout a branch that is different from the worktree name (develop), and create a new branch on top of that branch (feature/create-user-interface)
+[,bash]
+----
+git worktree add feature develop -b feature/create-user-interface
+----
+
+== Best Practices
+
+This is where we get into the more opinionated part of the article.
+
+=== Use worktrees with bare git repos
+
+When going over `worktree add`, we used paths like this `../branch`.
+This works but it clutters up the parent directory of your git project.
+Some recommend creating a parent folder and storing all your worktrees in there like this:
+
+[,bash]
+----
+mkdir ../myrepo-worktrees
+git worktree add ../myrepo-worktrees/hotfix
+cd ../hotfix
+----
+
+I'm not a fan of this either because you now have 2 separate folders for the same project.
+I recommend cloning your project as a bare repo and then creating your worktrees inside the bare repo like this:
+
+[,bash]
+----
+git clone myrepo --bare
+cd myrepo
+git worktree add hotfix
+cd hotfix
+----
+
+Now all your work is in one directory and you do not have to use the `..`.
+
+NOTE: Not familiar with bare git repos? See xref:bare-git-repo.adoc[]
+
+=== Use long-lived worktrees
+
+I recommend having a long-lived worktree for only your `main` branch.
+This allows you to quickly check the latest state of your repo.
+Depending on your git setup, you may want other long-lived worktrees like `develop` or `release`.
+
+=== Create worktree for each task
+
+When working on a new feature or hotfix, create a new worktree for it and delete it when you are done.
+This allows you to work on multiple changes independently.
