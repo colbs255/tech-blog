@@ -5,9 +5,9 @@
 image::guido-git-worktrees.png[]
 
 Yep, even the creator of python did not know about git worktrees.
-They are not well known, but they are quite powerful.
-Worktrees allow you to checkout multiple branches independently,
-so you can work on a branch then seamlessly switch to another branch without clobbering the changes you have made in the current branch.
+Worktrees are not well known, but they are quite powerful.
+They allow you to checkout multiple branches independently,
+so you can work on one branch then seamlessly switch to another branch without clobbering the changes you have made in the current branch.
 Once you learn how to use worktrees, it is hard to go back!
 
 == What are they?
