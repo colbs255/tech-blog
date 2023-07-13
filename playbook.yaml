@@ -15,5 +15,10 @@ asciidoc:
     plantuml-server-url: http://www.plantuml.com/plantuml
   extensions:
   - asciidoctor-plantuml
+antora:
+  extensions:
+  # Search index
+  - require: '@antora/lunr-extension'
+    index_latest_only: true
 runtime:
   fetch: true
