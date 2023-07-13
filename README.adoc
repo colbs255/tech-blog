@@ -8,3 +8,8 @@ You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labe
 
 == How do I suggest a correction or improvement?
 You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labels=&template=correction.md&title=Correction[correction] issue or submit a pull request.
+
+== How do I build the project?
+
+. Install `node` 16 or greater
+. Run `make`
