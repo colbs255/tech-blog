@@ -1,0 +1,16 @@
+= Java Microbenchmarking with JMH
+:keywords: java, performance
+:revdate: July 2023
+
+def microbenchmarking
+introduce jmh
+
+basic example (copy baeldung)
+
+iteration: has a set time limit
+    runs test as many times as it can in that time limit
+    computes statistics for that iteration
+
+can configure warmup iterations that don't count towards stats
+
+blackhole concept
