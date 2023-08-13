@@ -2,3 +2,4 @@
 * xref:atomic-sync-volatile.adoc[]
 * xref:fluent-interface.adoc[]
 * xref:cheatsheet.adoc[]
+* xref:mutability-rust.adoc[]

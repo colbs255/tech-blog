@@ -1,0 +1,69 @@
+= Mutability in Rust
+:keywords: rust
+:revdate: March 2023
+
+Mutability is a pretty straightforward concept, but throwing references into the mix can be confusing initially.
+This article claims to clear that up.
+
+== Variable Types
+
+When discussing variables, there are 2 common actions:
+
+- reassignment: change the variable to a different value
+- mutation: change something on the value
+
+=== Immutable Value
+
+[,rust]
+----
+let x: String = String::from("hello");
+----
+
+This is the most straightforward variable type.
+You can't reassign this value or mutate anything in it.
+Both lines below will fail to compile:
+
+[,rust]
+----
+x = String::from("another");
+x.push_str("another");
+----
+
+=== Mutable Value
+
+[,rust]
+----
+let mut x: String = String::from("hello");
+----
+
+=== Immutable Reference to an Immutable Value
+
+[,rust]
+----
+let a: String = String::from("hello");
+let x: &String = &a;
+----
+
+=== Immutable Reference to a Mutable Value
+
+[,rust]
+----
+let mut a: String = String::from("hello");
+let x: &mut String = &a;
+----
+
+=== Mutable Reference to an Immutable Value
+
+[,rust]
+----
+let a: String = String::from("hello");
+let mut x: &String = &a;
+----
+
+=== Mutable Reference to a Mutable Value
+
+[,rust]
+----
+let mut a: String = String::from("hello");
+let mut x: &mut String = &a;
+----
