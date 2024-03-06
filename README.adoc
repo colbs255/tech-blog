@@ -11,5 +11,6 @@ You can file a https://github.com/colbs255/tech-notes/issues/new?assignees=&labe
 
 == How do I build the project?
 
-. Install `node` 16 or greater
-. Run `make`
+- Requires `nix`
+- Run `nix develop` to setup dev environment
+- Run `make`
