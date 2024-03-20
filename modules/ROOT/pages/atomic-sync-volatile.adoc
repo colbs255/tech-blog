@@ -82,7 +82,7 @@ This means volatile variables fix the loop example but not the `x++` example.
 
 === Synchronized
 Synchronized blocks have stronger semantics than volatile; they address the memory visibility problem but *also address the atomicity problem* by ensuring only 1 thread is running the synchronized block at a time.
-This means a synchronized block fix both examples, but they are less performant than volatile variables due to locking.
+This means a synchronized block fixes both examples above, but they are less performant than volatile variables due to locking.
 
 === Atomic Variables
 Atomic variables have volatile semantics with `get` and `set` but also solve the atomicity problem via compare and set (CAS) operations (`compareAndSet` method).
