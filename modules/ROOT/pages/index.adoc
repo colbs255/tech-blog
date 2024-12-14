@@ -10,3 +10,4 @@ Early stage of my tech blog.
 * xref:fluent-interface.adoc[]
 * xref:bare-git-repo.adoc[]
 * xref:git-worktrees.adoc[]
+* xref:garbage-collection.adoc[]

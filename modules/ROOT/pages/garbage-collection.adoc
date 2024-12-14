@@ -1,0 +1,141 @@
+= Garbage Collection
+:keywords: java, garbage, collection
+:revdate: December 2024
+
+WARNING: This article is a work in progress
+
+These are my notes taken from Gil Tene's https://www.youtube.com/watch?v=Uj1_4shgXpk[talk on Java garbage collection].
+
+== Classifying Garbage Collectors
+
+Concurrent::
+collector performs garbage collection work concurrently with applications own execution
+Parallel::
+collector uses multpiple CPUs to perform garbage collection work
+Stop-the-world::
+(opposite of concurrent)collector performs garbage collection while application is completely stopped
+Monolithic::
+collector does all the work in a single indivisible step
+Incremental::
+(opposite of monolithic)collector performs work as a series of smaller steps
+Mostly::
+qualifier used to say something is sometimes not what it is (e.g., mostly concurrent collector)
+
+== Garbage Collection Terms
+
+Live set::
+Objects in heap that are still live(reachable)
+Safepoint::
+point in a thread's execution when the collector can identify all the references in that execution stack
+Bringing a thread to a safepoint::
+act of getting a thread to reach a safepoint but not going past it.
+Generally done by stopping the thread, but JNI is an exception since the thread can continue to run while in the safepoint.
+Global Safepoint::
+All threads in a safepoint
+Stop the world pause::
+A global safepoint
+
+== Evaluating Garbage Collectors
+
+Throughput::
+Latency::
+Footprint::
+Scalability::
+how do these metrics change as heap sizes decrease? ZGC for example works well with large heaps (terabytes)
+
+There are other metrics like predictability but these are the most common ones
+
+== What do all GCs do?
+
+- Identify live objects in heap
+- Reclaim resources held by dead objects
+- Periodically relocate live objects
+
+Mark/Sweep/Compact and Copying collector both do this
+
+== Mark/Sweep/Compact Collector
+
+=== Mark
+
+- start from roots (thread stacks, static, etc)
+- mark everything you find as live (basically a graph traversal)
+- at the end, all reachable objects are marked live and all others are marked dead
+- work is generally **linear to live-set**
+
+=== Sweep
+
+- Scan the heap and track/free the dead objects
+- Scan's the **entire** heap
+
+=== Compact
+
+- Over time, heap will get "swiss cheesed" (many holes)
+- The free space (holes) might not be large enough to accommodate new allocations (fragmentation)
+- Compaction moves live objects together to reclaim contiguous empty space
+- Has to fix pointers to ALL objects (when moving an object, all things that point to it also have to update their pointers)
+- Work is **linear to the live set** - only the live objects need to be fixed
+
+== Copy Collector
+
+- Heap region is divided into a "from" space and a "to" space, meaning this collector requires 2X max
+- Moves all objects from a "from" space to a "to" space and reclaims the "from" space
+- Copy root references to "from" space then follow with everything else
+- At the end, all live objects are in "to" space and "from" space can be reclaimed
+- Work is generally **linear to live set**
+
+== Generational Collection
+
+Many garbage collectors take advantage of the Weak generational hypothesis: most objects die young
+They do this by splitting the heap into a young and old generation and focusing on the young generation:
+- copy collector work is linear to the live set
+- live set in the young generation is a small percentage of space
+- promote objects that live long enough to older generations
+Only collect old generation as they fill up.
+Young generation usually uses a copy collector while old generation uses something like mark/sweep/compact
+This results in a more efficient collector.
+
+== Java Garbage Collectors
+
+=== Serial
+
+Low footpring
+
+=== Parallel
+
+Focus on throughput: efficient and stops the world on everything
+
+- Young-gen: monolithic, stop-the-world copying 
+- Old-gen: Monolithic stop-the-world Mark/sweep/compact
+
+=== CMS
+
+Replaced by G1
+
+=== G1
+
+Focus on a balance of good throughput and latency(pause times)
+
+* Young-gen: monolithic, stop-the-world copying
+* Old-gen: Mostly concurrent
+    ** But also stops the world for compaction (compaction always stops the world)
+    ** But it is incremental, so we can do this in increments
+* Tries to avoid full GC, but sometimes has to do it
+
+=== ZGC
+
+Focus on low latency while also scaling to large heaps (several terabytes)
+Scalable to multiple terabytes of heap
+While many GCs can pause for hundreds of milliseconds, ZGC pauses for at most 1ms
+Simple to tune
+
+.attributes
+- concurrent
+- constant pause times
+- parallel
+- compacting
+- region based like G1
+
+=== Epsilon
+
+Collector does no garbage collection.
+Very fast but your application will run out of memory.
